@@ -1,0 +1,628 @@
+<style>
+  .ruby-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .ruby-content h1 {
+    color: #CC342D;
+    border-bottom: 3px solid #CC342D;
+    padding-bottom: 10px;
+  }
+  
+  .ruby-content h2 {
+    color: #CC342D;
+    margin-top: 40px;
+  }
+  
+  .ruby-content pre {
+    background: #f4f4f4;
+    border-left: 4px solid #CC342D;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console button {
+    background: #CC342D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .code-console button:hover {
+    background: #a02822;
+  }
+  
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+  
+  .exercise-prompt {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    margin: 20px 0;
+  }
+</style>
+
+<div class="ruby-content">
+  <h1>Ruby</h1>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Ruby is a dynamic, object-oriented programming language that emphasizes simplicity and productivity. 
+      Created by Yukihiro Matsumoto in the mid-1990s, Ruby is designed to be easy to read and write, 
+      making it perfect for beginners while still being powerful enough for complex applications.
+    </p>
+    <p>
+      In this guide, you'll learn the fundamentals of Ruby through examples and interactive exercises.
+    </p>
+  </section>
+
+  <section>
+    <h2>Basic Data Types</h2>
+    <p>
+      Ruby supports several fundamental data types. Understanding these is crucial for writing Ruby programs.
+      Let's explore numbers, strings, booleans, arrays, and hashes.
+    </p>
+    
+    <pre><code># Numbers
+a = 1                  # integer
+b = 2.5                # float
+c = Complex(3, 6)      # complex
+
+# Strings
+d = 'A'
+e = "Hello"            # double quotes allow interpolation
+f = 'There\'s'         # single quotes require escaping
+
+# Boolean
+j = false              # only false and nil are false values
+
+# Hash (key-value pairs)
+hash = { "red" => "stop", "yellow" => "slow", "green" => "go" }
+
+# Array (ordered collection)
+mondays = [1, 8, 15, 22, 29]
+
+# Output
+puts "#{a}"
+puts "#{b}"
+puts "#{c}"
+puts "#{d}"
+puts "#{e}"
+puts "#{f}"
+
+hash.each do |key, value|
+  print "if the sign is ", key, " it means ", value, "\n"
+end
+
+mondays.each do |i|
+  puts i
+end</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 1: Working with Data Types</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a variable called <code>name</code> with your name as a string, 
+      a variable called <code>age</code> with your age as an integer, and print both using string interpolation.
+    </div>
+    <form class="ruby-console-form" data-exercise="1">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="1">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Variables and Symbols</h2>
+    <p>
+      Ruby variables don't require type declarations. Ruby also has symbols, which are immutable identifiers 
+      that are more memory-efficient than strings when used as keys or constants.
+    </p>
+    
+    <pre><code># Numbers
+int = 21
+float = 4.01
+rational = Rational(2, 3)
+complex = Complex(1, 2)
+
+# Strings
+string = "Hello, world!"
+
+# Symbols (immutable identifiers)
+sym = :Pao
+
+# Booleans
+bool = true
+
+# Nil (represents absence of value)
+likenull = nil
+
+# Arrays (can contain mixed types)
+array = [1, 2, 3, "four", :five]
+
+# Hashes (modern syntax with symbols)
+h = { name: "Colocho Famoso", age: 20 }
+
+# Ranges
+range_inclusive = 1..5    # includes 5
+range_exclusive = 1...5   # excludes 5
+
+puts int
+puts float
+puts string
+puts sym
+puts bool
+p nil                     # p shows debug output
+puts array
+puts h</code></pre>
+  </section>
+
+  <section>
+    <h2>Conditionals</h2>
+    <p>
+      Control flow in Ruby uses <code>if</code>, <code>elsif</code>, and <code>else</code>. 
+      Ruby also supports logical operators like <code>&&</code> (AND), <code>||</code> (OR), 
+      and <code>not</code> (NOT).
+    </p>
+    
+    <pre><code># Basic if-else
+a = 1
+b = 2
+c = 3
+d = 4
+e = 5
+f = 6
+
+if d > a
+  puts 'd > a'
+end
+
+if e < b
+  puts 'e < b'
+else
+  puts 'e > b'
+end
+
+# elsif (else-if)
+if f < c
+  puts 'f < c'
+elsif not (e >= b) && (d >= b)
+  puts 'e <= b && d >= b'
+else
+  puts 'e <= c && d <= b'
+  if (a <= f) || (d <= b)
+    puts 'a <= f || d <= b'
+  end
+end
+
+# Ternary operator
+result = a > b ? 'a is bigger' : 'b is bigger'
+puts result</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 2: Conditionals Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Write a program that checks if a number is positive, negative, or zero. 
+      Create a variable <code>num</code> and use if-elsif-else to print the result.
+    </div>
+    <form class="ruby-console-form" data-exercise="2">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="2">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Loops</h2>
+    <p>
+      Ruby provides several ways to iterate: <code>while</code>, <code>for</code>, <code>until</code>, 
+      and the versatile <code>loop</code> construct. Each has its use cases.
+    </p>
+    
+    <pre><code># While loop (decrementing)
+x = 5
+while x >= 1
+  puts x
+  x -= 1
+end
+
+# For loop with array
+arr = [1, 2, 3, 4, 5]
+for i in arr do
+  puts i
+end
+
+# For loop with range
+y = 10
+for z in 1..5 do
+  y = y * 2
+  puts y
+end
+
+# Loop do (do-while equivalent)
+x = 1
+loop do
+  puts x
+  x *= 2
+  break if x >= 10
+end
+
+# Until loop
+p = 1
+until p == 5 do
+  puts p * 5
+  p += 1
+end</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 3: Loop Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Use a loop to print the numbers 1 through 10, but only print even numbers. 
+      Try using a <code>for</code> loop with a range and an <code>if</code> statement.
+    </div>
+    <form class="ruby-console-form" data-exercise="3">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="3">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Methods</h2>
+    <p>
+      Methods in Ruby are defined with the <code>def</code> keyword and can accept parameters. 
+      Ruby methods automatically return the last evaluated expression, but you can use 
+      <code>return</code> explicitly for early returns or clarity.
+    </p>
+    
+    <pre><code># Simple method
+def hi
+  puts "hello there"
+end
+
+# Method with parameter
+def greet(name)
+  puts "hello #{name}"
+end
+
+# Method with implicit return
+def double_it(i)
+  i * 2
+end
+
+# Method with explicit return
+def half_it(i)
+  r = i / 2.0
+  return r
+end
+
+# Calling methods
+greet("Alice")
+puts double_it(10)
+puts half_it(9)</code></pre>
+  </section>
+
+  <section>
+    <h2>User Input</h2>
+    <p>
+      Ruby can read user input from the console using <code>gets</code>. The <code>chomp</code> method 
+      removes the trailing newline character. You can convert input to different types using 
+      <code>to_i</code> (integer) or <code>to_f</code> (float).
+    </p>
+    
+    <pre><code># Getting string input
+puts "Enter your name: "
+name = gets.chomp
+puts "Hello #{name}"
+
+# Getting integer input
+puts "Enter a number: "
+number = gets.to_i
+puts "Double: #{number * 2}"
+
+# Getting float input
+puts "Enter a decimal number: "
+decimal = gets.to_f
+puts "Half: #{decimal / 2}"
+
+# Using input in a loop
+running = true
+while running
+  puts "Enter 'quit' to exit:"
+  answer = gets.chomp.downcase
+  if answer == 'quit'
+    puts 'Goodbye!'
+    running = false
+  else
+    puts "You entered: #{answer}"
+  end
+end</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 4: Methods Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a method called <code>calculate_area</code> that takes two parameters 
+      (length and width) and returns the area. Then call the method with values 5 and 3, and print the result.
+    </div>
+    <form class="ruby-console-form" data-exercise="4">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="4">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Arrays and Iteration</h2>
+    <p>
+      Ruby arrays are versatile and come with many built-in methods for manipulation and iteration.
+      The <code>each</code> method is commonly used for iterating over arrays.
+    </p>
+    
+    <pre><code># Creating arrays
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", :symbol, true]
+
+# Array methods
+numbers.push(6)           # Add to end
+numbers << 7              # Also adds to end
+numbers.unshift(0)        # Add to beginning
+numbers.pop               # Remove from end
+numbers.shift             # Remove from beginning
+
+# Iteration with each
+numbers.each do |num|
+  puts num * 2
+end
+
+# Map (transform each element)
+doubled = numbers.map { |n| n * 2 }
+
+# Select (filter)
+evens = numbers.select { |n| n.even? }
+
+# Reduce (accumulate)
+sum = numbers.reduce(0) { |acc, n| acc + n }</code></pre>
+  </section>
+
+  <section>
+    <h2>Hashes</h2>
+    <p>
+      Hashes are collections of key-value pairs, similar to dictionaries in other languages. 
+      They're extremely useful for storing related data.
+    </p>
+    
+    <pre><code># Creating hashes (old syntax)
+person = { "name" => "Alice", "age" => 30 }
+
+# Modern syntax with symbols
+student = { name: "Bob", age: 25, grade: "A" }
+
+# Accessing values
+puts student[:name]
+puts student[:age]
+
+# Adding/updating values
+student[:major] = "Computer Science"
+student[:age] = 26
+
+# Iterating over hashes
+student.each do |key, value|
+  puts "#{key}: #{value}"
+end
+
+# Hash methods
+puts student.keys          # All keys
+puts student.values        # All values
+puts student.has_key?(:name)  # Check if key exists</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 5: Arrays and Hashes</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create an array of at least 3 hashes, where each hash represents a person 
+      with <code>name</code> and <code>age</code> keys. Then loop through the array and print each person's 
+      information in a readable format.
+    </div>
+    <form class="ruby-console-form" data-exercise="5">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="5">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Modules and Classes</h2>
+    <p>
+      Ruby is object-oriented. Classes define objects, and modules provide reusable code that can be 
+      mixed into classes. <code>include</code> adds module methods as instance methods, while 
+      <code>extend</code> adds them as class methods.
+    </p>
+    
+    <pre><code># Module with methods
+module AddOrSub
+  def addition(x, y)
+    x + y
+  end
+  
+  def subtraction(x, y)
+    x - y
+  end
+end
+
+module Modulus
+  def mod(x, y)
+    x % y
+  end
+end
+
+# Class using modules
+class Student
+  include Modulus          # Instance methods
+  extend AddOrSub          # Class methods
+  
+  attr_accessor :name, :age
+  
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+end
+
+# Using class methods (extend)
+puts Student.addition(5, 5)
+puts Student.subtraction(10, 5)
+
+# Using instance methods (include)
+student = Student.new("Alice", 20)
+puts student.mod(19, 4)</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 6: Final Challenge</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a simple calculator that:
+      <ul>
+        <li>Defines methods for add, subtract, multiply, and divide</li>
+        <li>Takes two numbers and an operation as input</li>
+        <li>Returns the result of the operation</li>
+      </ul>
+      Try calling your calculator methods with different numbers and operations!
+    </div>
+    <form class="ruby-console-form" data-exercise="6">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="6">Output will appear here...</div>
+  </div>
+
+  <section style="margin-top: 60px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+    <h2>What's Next?</h2>
+    <p>
+      You've learned the fundamentals of Ruby! From here, you can explore:
+    </p>
+    <ul>
+      <li><strong>File I/O:</strong> Reading and writing files</li>
+      <li><strong>Error Handling:</strong> Using begin/rescue/end blocks</li>
+      <li><strong>Ruby Gems:</strong> Using external libraries</li>
+      <li><strong>Rails Framework:</strong> Building web applications</li>
+    </ul>
+    <p>
+      Keep practicing with the exercises above, and try modifying the examples to experiment with Ruby!
+    </p>
+  </section>
+</div>
+
+<script>
+  // Handle all console forms
+  document.querySelectorAll('.ruby-console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const exerciseNum = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${exerciseNum}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+      
+      // Validate input
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+      
+      // Show loading state
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+      
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        const response = await fetch('/code/run', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Display output with appropriate styling
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (error) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + error.message;
+      } finally {
+        // Reset button
+        button.disabled = false;
+        button.textContent = 'Run Code';
+      }
+    });
+  });
+</script>
