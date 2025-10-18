@@ -1,0 +1,538 @@
+<style>
+  .python-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .python-content h1 {
+    color: #3776AB;
+    border-bottom: 3px solid #3776AB;
+    padding-bottom: 10px;
+  }
+  
+  .python-content h2 {
+    color: #3776AB;
+    margin-top: 40px;
+  }
+  
+  .python-content pre {
+    background: #f4f4f4;
+    border-left: 4px solid #3776AB;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console button {
+    background: #3776AB;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .code-console button:hover {
+    background: #2a5a85;
+  }
+  
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+  
+  .exercise-prompt {
+    background: #d1ecf1;
+    border-left: 4px solid #0c5460;
+    padding: 15px;
+    margin: 20px 0;
+  }
+</style>
+
+<div class="python-content">
+  <h1>Python</h1>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Python is a high-level, interpreted programming language known for its simplicity and readability. 
+      Created by Guido van Rossum and first released in 1991, Python emphasizes code readability with 
+      its use of significant indentation.
+    </p>
+    <p>
+      Python is widely used in web development, data science, artificial intelligence, automation, 
+      and scientific computing. In this guide, you'll learn Python fundamentals through examples and exercises.
+    </p>
+  </section>
+
+  <section>
+    <h2>Basic Data Types</h2>
+    <p>
+      Python supports several fundamental data types. Unlike many languages, Python doesn't require 
+      explicit type declarations - the type is inferred from the value assigned.
+    </p>
+    
+    <pre><code># Numbers
+integer = 42
+floating = 3.14
+complex_num = 2 + 3j
+
+# Strings
+single = 'Hello'
+double = "World"
+multi = '''This is a
+multi-line string'''
+
+# Boolean
+is_true = True
+is_false = False
+
+# None (similar to null in other languages)
+nothing = None
+
+# Lists (ordered, mutable)
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", True, 3.14]
+
+# Tuples (ordered, immutable)
+coordinates = (10, 20)
+
+# Dictionaries (key-value pairs)
+person = {"name": "Alice", "age": 30}
+
+# Sets (unordered, unique elements)
+unique_nums = {1, 2, 3, 4, 5}
+
+# Output
+print(integer)
+print(floating)
+print(single, double)
+print(numbers)
+print(person)</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 1: Working with Data Types</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create variables for your name (string), age (integer), and height (float). 
+      Print them using f-strings (formatted string literals).
+    </div>
+    <form class="python-console-form" data-exercise="1">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="1">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Conditionals</h2>
+    <p>
+      Python uses <code>if</code>, <code>elif</code>, and <code>else</code> for conditional statements. 
+      Note that Python uses indentation (typically 4 spaces) instead of braces to define code blocks.
+    </p>
+    
+    <pre><code># Basic if-else
+x = 10
+y = 5
+
+if x > y:
+    print("x is greater than y")
+else:
+    print("x is not greater than y")
+
+# elif (else-if)
+num = 0
+if num > 0:
+    print("Positive")
+elif num < 0:
+    print("Negative")
+else:
+    print("Zero")
+
+# Logical operators: and, or, not
+age = 25
+if age >= 18 and age < 65:
+    print("Working age")
+
+# Ternary operator
+result = "Even" if num % 2 == 0 else "Odd"
+print(result)</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 2: Conditionals Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Write a program that checks if a number is divisible by both 3 and 5, 
+      just by 3, just by 5, or neither. Use if-elif-else statements.
+    </div>
+    <form class="python-console-form" data-exercise="2">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="2">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Loops</h2>
+    <p>
+      Python provides <code>for</code> and <code>while</code> loops for iteration. 
+      The <code>for</code> loop is commonly used with the <code>range()</code> function or to iterate 
+      over sequences.
+    </p>
+    
+    <pre><code># While loop
+count = 5
+while count > 0:
+    print(count)
+    count -= 1
+
+# For loop with range
+for i in range(5):
+    print(i)  # Prints 0 to 4
+
+# For loop with list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# For loop with range (start, stop, step)
+for i in range(2, 10, 2):
+    print(i)  # Prints 2, 4, 6, 8
+
+# List comprehension (Pythonic way)
+squares = [x**2 for x in range(5)]
+print(squares)
+
+# Break and continue
+for i in range(10):
+    if i == 5:
+        break  # Exit loop
+    if i % 2 == 0:
+        continue  # Skip to next iteration
+    print(i)</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 3: Loop Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Use a for loop to print all numbers from 1 to 20 that are divisible by 3. 
+      Try using the modulo operator (%).
+    </div>
+    <form class="python-console-form" data-exercise="3">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="3">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Functions</h2>
+    <p>
+      Functions in Python are defined using the <code>def</code> keyword. They can accept parameters 
+      and return values. Python also supports default parameter values and keyword arguments.
+    </p>
+    
+    <pre><code># Simple function
+def greet():
+    print("Hello!")
+
+# Function with parameters
+def greet_person(name):
+    print(f"Hello, {name}!")
+
+# Function with return value
+def add(a, b):
+    return a + b
+
+# Function with default parameter
+def power(base, exponent=2):
+    return base ** exponent
+
+# Calling functions
+greet()
+greet_person("Alice")
+result = add(5, 3)
+print(result)
+print(power(3))      # Uses default exponent=2
+print(power(3, 3))   # Override default
+
+# Lambda (anonymous) functions
+square = lambda x: x ** 2
+print(square(5))</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 4: Functions Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a function called <code>calculate_average</code> that takes 
+      three numbers as parameters and returns their average. Call it with values 10, 20, and 30.
+    </div>
+    <form class="python-console-form" data-exercise="4">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="4">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Lists and List Methods</h2>
+    <p>
+      Lists are one of Python's most versatile data structures. They're mutable, ordered sequences 
+      that can contain elements of different types.
+    </p>
+    
+    <pre><code># Creating and modifying lists
+numbers = [1, 2, 3, 4, 5]
+
+# Adding elements
+numbers.append(6)        # Add to end
+numbers.insert(0, 0)     # Insert at position
+numbers.extend([7, 8])   # Add multiple elements
+
+# Removing elements
+numbers.pop()            # Remove last
+numbers.remove(0)        # Remove specific value
+
+# List operations
+print(len(numbers))      # Length
+print(numbers[0])        # First element
+print(numbers[-1])       # Last element
+print(numbers[1:4])      # Slicing
+
+# List methods
+numbers.sort()           # Sort in place
+numbers.reverse()        # Reverse in place
+print(numbers.count(3))  # Count occurrences
+
+# List comprehension
+evens = [x for x in numbers if x % 2 == 0]
+print(evens)</code></pre>
+  </section>
+
+  <section>
+    <h2>Dictionaries</h2>
+    <p>
+      Dictionaries store key-value pairs and are extremely useful for organizing related data. 
+      They're mutable and unordered (in Python 3.6+, they maintain insertion order).
+    </p>
+    
+    <pre><code># Creating dictionaries
+student = {
+    "name": "Bob",
+    "age": 20,
+    "grade": "A"
+}
+
+# Accessing values
+print(student["name"])
+print(student.get("age"))
+
+# Adding/updating values
+student["major"] = "Computer Science"
+student["age"] = 21
+
+# Dictionary methods
+print(student.keys())    # All keys
+print(student.values())  # All values
+print(student.items())   # All key-value pairs
+
+# Iterating over dictionary
+for key, value in student.items():
+    print(f"{key}: {value}")
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(5)}
+print(squares)</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 5: Lists and Dictionaries</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a list of at least 3 dictionaries, where each dictionary 
+      represents a book with "title", "author", and "year" keys. Loop through and print each book's info.
+    </div>
+    <form class="python-console-form" data-exercise="5">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="5">Output will appear here...</div>
+  </div>
+
+  <section>
+    <h2>Classes and Objects</h2>
+    <p>
+      Python is an object-oriented language. Classes provide a way to bundle data and functionality together. 
+      Creating a new instance of a class creates an object of that type.
+    </p>
+    
+    <pre><code># Defining a class
+class Dog:
+    # Class attribute
+    species = "Canis familiaris"
+    
+    # Constructor
+    def __init__(self, name, age):
+        self.name = name  # Instance attribute
+        self.age = age
+    
+    # Instance method
+    def bark(self):
+        return f"{self.name} says Woof!"
+    
+    # Instance method with parameter
+    def birthday(self):
+        self.age += 1
+        return f"{self.name} is now {self.age} years old"
+
+# Creating objects
+buddy = Dog("Buddy", 3)
+max_dog = Dog("Max", 5)
+
+# Using objects
+print(buddy.bark())
+print(buddy.birthday())
+print(f"Species: {buddy.species}")
+
+# Inheritance
+class Puppy(Dog):
+    def bark(self):
+        return f"{self.name} says Yip!"
+
+puppy = Puppy("Charlie", 1)
+print(puppy.bark())</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 6: Final Challenge</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a <code>Calculator</code> class with methods for add, subtract, 
+      multiply, and divide. Create an instance and use it to perform calculations with different numbers.
+    </div>
+    <form class="python-console-form" data-exercise="6">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="6">Output will appear here...</div>
+  </div>
+
+  <section style="margin-top: 60px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+    <h2>What's Next?</h2>
+    <p>
+      You've learned the fundamentals of Python! From here, you can explore:
+    </p>
+    <ul>
+      <li><strong>File I/O:</strong> Reading and writing files with open()</li>
+      <li><strong>Exception Handling:</strong> Using try/except blocks</li>
+      <li><strong>Modules and Packages:</strong> Organizing code and using pip</li>
+      <li><strong>Popular Libraries:</strong> NumPy, Pandas, Flask, Django</li>
+      <li><strong>GUI Frameworks:</strong> QtPy5 and PySide6</li>
+    </ul>
+    <p>
+      Keep practicing with the exercises above, and try modifying the examples to experiment with Python!
+    </p>
+  </section>
+</div>
+
+<script>
+  // Handle all console forms
+  document.querySelectorAll('.python-console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const exerciseNum = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${exerciseNum}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+      
+      // Validate input
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+      
+      // Show loading state
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+      
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        const response = await fetch('/code/run', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Display output with appropriate styling
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (error) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + error.message;
+      } finally {
+        // Reset button
+        button.disabled = false;
+        button.textContent = 'Run Code';
+      }
+    });
+  });
+</script>

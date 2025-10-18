@@ -1,0 +1,694 @@
+<style>
+  .java-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .java-content h1 {
+    color: #007396;
+    border-bottom: 3px solid #007396;
+    padding-bottom: 10px;
+  }
+  
+  .java-content h2 {
+    color: #007396;
+    margin-top: 40px;
+  }
+  
+  .java-content pre {
+    background: #f4f4f4;
+    border-left: 4px solid #007396;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console button {
+    background: #007396;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .code-console button:hover {
+    background: #005a75;
+  }
+  
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+  
+  .exercise-prompt {
+    background: #fff3cd;
+    border-left: 4px solid #ff9800;
+    padding: 15px;
+    margin: 20px 0;
+  }
+  
+  .info-note {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin: 20px 0;
+  }
+</style>
+
+<div class="java-content">
+  <h1>Java</h1>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Java is a high-level, class-based, object-oriented programming language designed to have as few 
+      implementation dependencies as possible. Created by James Gosling at Sun Microsystems and released 
+      in 1995, Java follows the principle of "write once, run anywhere" (WORA).
+    </p>
+    <p>
+      Java is widely used for building enterprise applications, Android apps, web applications, and more. 
+      In this guide, you'll learn Java fundamentals through examples and exercises.
+    </p>
+    <div class="info-note">
+      <strong>Note:</strong> Java execution in the browser requires compilation, which is currently being implemented. 
+      For now, you can view examples and try them in your local Java environment.
+    </div>
+  </section>
+
+  <section>
+    <h2>Basic Structure</h2>
+    <p>
+      Every Java application must have at least one class and a <code>main</code> method, 
+      which is the entry point of the program. Java is strictly typed, meaning every variable 
+      must have a declared type.
+    </p>
+    
+    <pre><code>// Basic Hello World
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Basic Data Types</h2>
+    <p>
+      Java has two categories of data types: primitive types (built-in) and reference types (objects). 
+      Primitive types include integers, floating-point numbers, characters, and booleans.
+    </p>
+    
+    <pre><code>public class DataTypes {
+    public static void main(String[] args) {
+        // Integer types
+        byte smallNum = 127;           // 8-bit
+        short shortNum = 32000;        // 16-bit
+        int num = 100000;              // 32-bit (most common)
+        long bigNum = 9000000000L;     // 64-bit (note the L)
+        
+        // Floating-point types
+        float decimal = 3.14f;         // 32-bit (note the f)
+        double largeDecimal = 3.14159; // 64-bit (default)
+        
+        // Character and boolean
+        char letter = 'A';
+        boolean isTrue = true;
+        
+        // String (reference type)
+        String text = "Hello, Java!";
+        
+        // Output
+        System.out.println("Integer: " + num);
+        System.out.println("Double: " + largeDecimal);
+        System.out.println("Char: " + letter);
+        System.out.println("String: " + text);
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 1: Working with Data Types</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a Java class with variables for your name (String), age (int), 
+      and height in meters (double). Print them all using System.out.println().
+    </div>
+    <form class="java-console-form" data-exercise="1">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="1">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section>
+    <h2>Conditionals</h2>
+    <p>
+      Java uses <code>if</code>, <code>else if</code>, and <code>else</code> for conditional statements. 
+      Java also supports the <code>switch</code> statement for multiple conditions.
+    </p>
+    
+    <pre><code>public class Conditionals {
+    public static void main(String[] args) {
+        // Basic if-else
+        int x = 10;
+        int y = 5;
+        
+        if (x > y) {
+            System.out.println("x is greater than y");
+        } else {
+            System.out.println("x is not greater than y");
+        }
+        
+        // else if
+        int num = 0;
+        if (num > 0) {
+            System.out.println("Positive");
+        } else if (num < 0) {
+            System.out.println("Negative");
+        } else {
+            System.out.println("Zero");
+        }
+        
+        // Logical operators: && (AND), || (OR), ! (NOT)
+        int age = 25;
+        if (age >= 18 && age < 65) {
+            System.out.println("Working age");
+        }
+        
+        // Ternary operator
+        String result = (num % 2 == 0) ? "Even" : "Odd";
+        System.out.println(result);
+        
+        // Switch statement
+        int day = 3;
+        switch (day) {
+            case 1:
+                System.out.println("Monday");
+                break;
+            case 2:
+                System.out.println("Tuesday");
+                break;
+            case 3:
+                System.out.println("Wednesday");
+                break;
+            default:
+                System.out.println("Other day");
+        }
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 2: Conditionals Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Write a program that takes a grade (A, B, C, D, F) and uses a switch 
+      statement to print whether the grade is "Excellent", "Good", "Average", "Below Average", or "Failing".
+    </div>
+    <form class="java-console-form" data-exercise="2">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="2">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section>
+    <h2>Loops</h2>
+    <p>
+      Java provides several loop constructs: <code>for</code>, <code>while</code>, <code>do-while</code>, 
+      and the enhanced <code>for-each</code> loop for iterating over collections.
+    </p>
+    
+    <pre><code>public class Loops {
+    public static void main(String[] args) {
+        // For loop
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Count: " + i);
+        }
+        
+        // While loop
+        int count = 5;
+        while (count > 0) {
+            System.out.println(count);
+            count--;
+        }
+        
+        // Do-while loop (executes at least once)
+        int x = 0;
+        do {
+            System.out.println("x: " + x);
+            x++;
+        } while (x < 3);
+        
+        // For-each loop with array
+        int[] numbers = {1, 2, 3, 4, 5};
+        for (int num : numbers) {
+            System.out.println(num);
+        }
+        
+        // Break and continue
+        for (int i = 0; i < 10; i++) {
+            if (i == 5) {
+                break; // Exit loop
+            }
+            if (i % 2 == 0) {
+                continue; // Skip to next iteration
+            }
+            System.out.println(i);
+        }
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 3: Loop Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Use a for loop to print the first 10 numbers in the Fibonacci sequence 
+      (0, 1, 1, 2, 3, 5, 8, 13, 21, 34).
+    </div>
+    <form class="java-console-form" data-exercise="3">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="3">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section>
+    <h2>Methods</h2>
+    <p>
+      Methods in Java are functions defined within a class. They can have parameters, return values, 
+      and various access modifiers (<code>public</code>, <code>private</code>, <code>protected</code>).
+    </p>
+    
+    <pre><code>public class Methods {
+    // Method with no parameters or return value
+    public static void greet() {
+        System.out.println("Hello!");
+    }
+    
+    // Method with parameters
+    public static void greetPerson(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
+    
+    // Method with return value
+    public static int add(int a, int b) {
+        return a + b;
+    }
+    
+    // Method with multiple parameters and return
+    public static double calculateArea(double length, double width) {
+        return length * width;
+    }
+    
+    // Method overloading (same name, different parameters)
+    public static int multiply(int a, int b) {
+        return a * b;
+    }
+    
+    public static double multiply(double a, double b) {
+        return a * b;
+    }
+    
+    public static void main(String[] args) {
+        greet();
+        greetPerson("Alice");
+        
+        int sum = add(5, 3);
+        System.out.println("Sum: " + sum);
+        
+        double area = calculateArea(5.0, 3.0);
+        System.out.println("Area: " + area);
+        
+        System.out.println(multiply(3, 4));      // int version
+        System.out.println(multiply(3.5, 2.0));  // double version
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 4: Methods Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a method called <code>calculateCircleArea</code> that takes 
+      a radius (double) as a parameter and returns the area of the circle. Use Math.PI for π.
+    </div>
+    <form class="java-console-form" data-exercise="4">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="4">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section>
+    <h2>Arrays</h2>
+    <p>
+      Arrays in Java are fixed-size containers that hold elements of the same type. 
+      Once created, an array's size cannot be changed.
+    </p>
+    
+    <pre><code>public class Arrays {
+    public static void main(String[] args) {
+        // Declaring and initializing arrays
+        int[] numbers = {1, 2, 3, 4, 5};
+        String[] names = new String[3];
+        
+        // Assigning values
+        names[0] = "Alice";
+        names[1] = "Bob";
+        names[2] = "Charlie";
+        
+        // Accessing elements
+        System.out.println(numbers[0]);  // First element
+        System.out.println(numbers.length);  // Array length
+        
+        // Iterating over arrays
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println("Index " + i + ": " + numbers[i]);
+        }
+        
+        // Enhanced for loop (for-each)
+        for (String name : names) {
+            System.out.println(name);
+        }
+        
+        // Multi-dimensional arrays
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+        
+        System.out.println(matrix[1][1]);  // Prints 5
+    }
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>ArrayList (Dynamic Arrays)</h2>
+    <p>
+      ArrayList is a resizable array implementation from the Java Collections Framework. 
+      Unlike arrays, ArrayLists can grow and shrink dynamically.
+    </p>
+    
+    <pre><code>import java.util.ArrayList;
+
+public class ArrayListExample {
+    public static void main(String[] args) {
+        // Creating an ArrayList
+        ArrayList&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+        
+        // Adding elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Cherry");
+        
+        // Accessing elements
+        System.out.println(fruits.get(0));  // Apple
+        System.out.println(fruits.size());  // 3
+        
+        // Modifying elements
+        fruits.set(1, "Blueberry");
+        
+        // Removing elements
+        fruits.remove("Cherry");
+        fruits.remove(0);  // Remove by index
+        
+        // Iterating
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+        
+        // Check if contains
+        if (fruits.contains("Apple")) {
+            System.out.println("Has Apple");
+        }
+        
+        // Clear all elements
+        fruits.clear();
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 5: Arrays and ArrayList</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create an ArrayList of integers, add the numbers 1 through 10, 
+      then iterate through and print only the even numbers.
+    </div>
+    <form class="java-console-form" data-exercise="5">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="5">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section>
+    <h2>Classes and Objects</h2>
+    <p>
+      Java is object-oriented, meaning everything revolves around classes and objects. 
+      A class is a blueprint, and an object is an instance of a class.
+    </p>
+    
+    <pre><code>// Defining a class
+public class Dog {
+    // Instance variables (fields)
+    private String name;
+    private int age;
+    
+    // Constructor
+    public Dog(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    // Setter methods
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    // Instance method
+    public void bark() {
+        System.out.println(name + " says Woof!");
+    }
+    
+    // Method with logic
+    public void birthday() {
+        age++;
+        System.out.println(name + " is now " + age + " years old");
+    }
+}
+
+// Using the class
+public class Main {
+    public static void main(String[] args) {
+        // Creating objects
+        Dog buddy = new Dog("Buddy", 3);
+        Dog max = new Dog("Max", 5);
+        
+        // Using objects
+        buddy.bark();
+        System.out.println(buddy.getName() + " is " + buddy.getAge());
+        
+        buddy.birthday();
+        max.bark();
+    }
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Inheritance</h2>
+    <p>
+      Inheritance allows a class to inherit properties and methods from another class. 
+      The class being inherited from is called the superclass or parent class, 
+      and the class that inherits is called the subclass or child class.
+    </p>
+    
+    <pre><code>// Parent class
+public class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    public void eat() {
+        System.out.println(name + " is eating");
+    }
+}
+
+// Child class inheriting from Animal
+public class Cat extends Animal {
+    public Cat(String name) {
+        super(name);  // Call parent constructor
+    }
+    
+    // Override parent method
+    @Override
+    public void eat() {
+        System.out.println(name + " is eating fish");
+    }
+    
+    // New method specific to Cat
+    public void meow() {
+        System.out.println(name + " says Meow!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Cat whiskers = new Cat("Whiskers");
+        whiskers.eat();   // Uses overridden method
+        whiskers.meow();  // Uses Cat-specific method
+    }
+}</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 6: Final Challenge</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a <code>BankAccount</code> class with:
+      <ul>
+        <li>Private fields: accountNumber (String), balance (double)</li>
+        <li>Constructor to initialize both fields</li>
+        <li>Methods: deposit(double amount), withdraw(double amount), getBalance()</li>
+        <li>Create an instance and test the methods</li>
+      </ul>
+    </div>
+    <form class="java-console-form" data-exercise="6">
+      <textarea name="code" placeholder="Write your Java code here..."></textarea>
+      <input type="hidden" name="language" value="java">
+      <button type="submit">Run Code (Coming Soon)</button>
+    </form>
+    <div class="output-box" data-output="6">Java execution is being implemented. Try the code in your local environment!</div>
+  </div>
+
+  <section style="margin-top: 60px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+    <h2>What's Next?</h2>
+    <p>
+      You've learned the fundamentals of Java! From here, you can explore:
+    </p>
+    <ul>
+      <li><strong>Exception Handling:</strong> Using try-catch-finally blocks</li>
+      <li><strong>Interfaces and Abstract Classes:</strong> Advanced OOP concepts</li>
+      <li><strong>Collections Framework:</strong> HashMap, LinkedList, TreeSet, etc.</li>
+      <li><strong>File I/O:</strong> Reading and writing files</li>
+      <li><strong>Multithreading:</strong> Concurrent programming</li>
+      <li><strong>Java Frameworks:</strong> Spring Boot, Hibernate, JavaFX</li>
+    </ul>
+    <p>
+      Keep practicing with the exercises above. You can copy the code and run it in your local Java 
+      environment (use an IDE like IntelliJ IDEA, Eclipse, or VS Code with Java extensions).
+    </p>
+  </section>
+</div>
+
+<script>
+  // Handle all console forms
+  document.querySelectorAll('.java-console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const exerciseNum = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${exerciseNum}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+      
+      // Validate input
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+      
+      // Show loading state
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+      
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        const response = await fetch('/code/run', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Display output with appropriate styling
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (error) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + error.message;
+      } finally {
+        // Reset button
+        button.disabled = false;
+        button.textContent = 'Run Code (Coming Soon)';
+      }
+    });
+  });
+</script>
