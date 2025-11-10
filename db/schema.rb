@@ -10,6 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
-  # No tables defined yet - ready for your first scaffold!
+ActiveRecord::Schema[8.0].define(version: 2025_11_09_231347) do
+  create_table "user_pages", force: :cascade do |t|
+    t.string "title"
+    t.string "language"
+    t.string "author"
+    t.text "description"
+    t.text "content"
+    t.integer "downloads"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
