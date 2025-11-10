@@ -23,6 +23,20 @@
   </head>
 
   <body>
+      <div class="navbar">
+        <%= link_to "Home", root_path %>
+        <a href="#news">Concepts</a>
+        <div class="dropdown">
+          <button class="dropbtn">Sandbox
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <%= link_to "Ruby", sandbox_ruby_path %>
+            <%= link_to "Python", sandbox_python_path %>
+            <%= link_to "Java", sandbox_java_path %>
+          </div>
+        </div>
+      </div>
     <%= yield %>
   </body>
 </html>
