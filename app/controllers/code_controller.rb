@@ -6,9 +6,9 @@ class CodeController < ApplicationController
   def run
     language = params[:language]
     code = params[:code]
-    custom_lang = params[:custom_language]
+    custom_lang = params[:custom_language] || {}
 
-    # Validate inputs
+    # ✅ Validate input
     if code.blank?
       return render json: { success: false, output: "Error: No code provided" }
     end
@@ -17,36 +17,35 @@ class CodeController < ApplicationController
       return render json: { success: false, output: "Error: No language specified" }
     end
 
-    # Handle custom language input
+    # ✅ Handle custom language input (Perl, PHP, Go, etc.)
     if language == "custom" && custom_lang.present?
       lang_config = {
-        name: custom_lang[:name],
-        image: custom_lang[:image],
-        extension: custom_lang[:extension],
-        command: custom_lang[:command]
+        image: custom_lang[:image].presence || "alpine:latest",
+        extension: custom_lang[:extension].presence || ".txt",
+        command: custom_lang[:command].presence || "cat"
       }
+      language = custom_lang[:name].presence || "custom"
     else
-      # Default supported languages
+      # ✅ Default supported languages
       lang_config = {
-        "ruby" =>   { image: "ruby:3.3-alpine", extension: ".rb", command: "ruby" },
+        "ruby" =>   { image: "ruby:3.3-alpine", extension: ".rb",  command: "ruby" },
         "python" => { image: "python:3.12-alpine", extension: ".py", command: "python3" },
-        "java" =>   { image: "openjdk:17-alpine", extension: ".java", command: "javac" },
+        "java" =>   { image: "eclipse-temurin:17-jdk", extension: ".java", command: "sh -c 'javac Main.java && java Main'" },
         "javascript" => { image: "node:22-alpine", extension: ".js", command: "node" }
       }[language]
     end
 
     unless lang_config
-      return render json: { success: false, output: "Unsupported language: #{language}" }
+      return render json: { success: false, output: "✗ Unsupported language: #{language}" }
     end
 
     image = lang_config[:image]
     extension = lang_config[:extension]
     command = lang_config[:command]
 
-    # Log execution
-    Rails.logger.info "Executing #{language} code using #{image}"
+    Rails.logger.info "🟢 Running #{language} with image=#{image}, ext=#{extension}, cmd=#{command}"
 
-    # Execute code in Docker container
+    # ✅ Execute the code in Docker
     result = DockerRunner.run(language, code, image:, extension:, command:)
 
     render json: {
@@ -55,7 +54,7 @@ class CodeController < ApplicationController
     }
 
   rescue => e
-    Rails.logger.error "Code execution error: #{e.message}"
+    Rails.logger.error "❌ Code execution error: #{e.message}"
     render json: {
       success: false,
       output: "Server error: #{e.message}"

@@ -43,7 +43,6 @@
   .python-btn { background: #2980b9; }
   .java-btn { background: #007396; }
 
-  /* User Tutorials Section */
   .tutorials-section {
     max-width: 1200px;
     margin: 0 auto;
@@ -120,6 +119,11 @@
     color: white;
   }
 
+  .btn-delete {
+    background: #e74c3c;
+    color: white;
+  }
+
   .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -128,13 +132,14 @@
 
   .create-btn {
     display: inline-block;
-    margin-top: 20px;
+    margin: 20px 0 30px 0;
     padding: 15px 30px;
     background: #667eea;
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
   }
 </style>
 
@@ -152,25 +157,105 @@
   <h2>User-Made Language Tutorials</h2>
   <p>Explore programming tutorials created by the community.</p>
 
-  <% if @user_pages.any? %>
-    <div class="page-grid">
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px;">
+    <%= link_to "Create New Tutorial", new_user_page_path, class: "create-btn" %>
+
+    <label for="upload-json" class="create-btn">Upload JSON</label>
+    <input type="file" id="upload-json" accept="application/json" style="display: none;">
+  </div>
+
+  <div id="page-grid" class="page-grid">
+    <% if @user_pages.any? %>
       <% @user_pages.each do |page| %>
-        <div class="page-card">
-          <div class="page-title"><%= page.title %></div>
-          <div class="page-meta">
-            <strong><%= page.language.capitalize %></strong> • by <%= page.author %>
-          </div>
-          <div class="page-description"><%= truncate(page.description, length: 100) %></div>
-          <%= link_to "View", user_page_path(page), class: "btn btn-view" %>
-          <%= link_to "Download", user_pages_download_path(page), class: "btn btn-download" %>
-        </div>
+        <%= render partial: "user_pages/user_page", locals: { page: page } %>
       <% end %>
-    </div>
-  <% else %>
-    <div class="empty-state">
-      <h2>No tutorials yet!</h2>
-      <p>Be the first to create a programming tutorial for the community.</p>
-      <%= link_to "Create First Tutorial", new_user_page_path, class: "create-btn" %>
-    </div>
-  <% end %>
+    <% else %>
+      <div class="empty-state">
+        <h2>No tutorials yet!</h2>
+        <p>Be the first to create a programming tutorial for the community.</p>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('page-grid');
+
+  // Event delegation for delete buttons
+  grid.addEventListener('click', function(event) {
+    if (event.target.classList.contains('btn-delete')) {
+      event.preventDefault();
+      const card = event.target.closest('.page-card');
+      const pageId = card.dataset.id;
+
+      if (!confirm('Are you sure you want to delete this tutorial?')) return;
+
+      fetch(`/user_pages/${pageId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': '<%= form_authenticity_token %>',
+          'Accept': 'application/json'
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.success) {
+          card.remove();
+          if (!grid.querySelector('.page-card')) {
+            grid.innerHTML = `
+              <div class="empty-state">
+                <h2>No tutorials yet!</h2>
+                <p>Be the first to create a programming tutorial for the community.</p>
+              </div>
+            `;
+          }
+        } else {
+          alert('Delete failed: ' + data.error);
+        }
+      })
+      .catch(err => alert('Delete error: ' + err));
+    }
+  });
+
+  // Handle dynamic uploads
+  document.getElementById('upload-json').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('<%= user_pages_upload_path %>', {
+      method: 'POST',
+      body: formData,
+      headers: { 'X-CSRF-Token': '<%= form_authenticity_token %>' }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.success) {
+        const empty = grid.querySelector('.empty-state');
+        if (empty) empty.remove();
+
+        const card = document.createElement('div');
+        card.className = 'page-card';
+        card.dataset.id = data.id;
+        card.innerHTML = `
+          <div class="page-title">${data.title}</div>
+          <div class="page-meta">
+            <strong>${data.language.charAt(0).toUpperCase() + data.language.slice(1)}</strong> • by ${data.author}
+          </div>
+          <div class="page-description">${data.description}</div>
+          <a href="/user_pages/${data.id}" class="btn btn-view">View</a>
+          <a href="/user_pages/${data.id}/download" class="btn btn-download">Download</a>
+          <button class="btn btn-delete">Delete</button>
+        `;
+        grid.prepend(card);
+      } else {
+        alert('Upload failed: ' + data.error);
+      }
+    })
+    .catch(err => alert('Upload error: ' + err));
+  });
+});
+</script>

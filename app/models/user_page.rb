@@ -39,6 +39,12 @@ class UserPage < ApplicationRecord
     )
   end
   
+  def parsed_content
+    JSON.parse(content || '{}')
+  rescue JSON::ParserError
+    {}
+  end
+  
   private
   
   def set_default_downloads

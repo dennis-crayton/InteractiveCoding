@@ -1,171 +1,202 @@
 <style>
-  body {
-    background: #f5f5f5;
-    min-height: 100vh;
-    padding: 40px 20px;
-  }
-  
-  .container {
-    max-width: 1000px;
+  .tutorial-content {
+    max-width: 900px;
     margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .back-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  
-  .header {
-    border-bottom: 3px solid #667eea;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .header h1 {
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .meta {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    color: #666;
-    font-size: 14px;
-  }
-  
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .language-badge {
-    display: inline-block;
-    padding: 5px 15px;
-    background: #667eea;
-    color: white;
-    border-radius: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-  
-  .description {
-    background: #f8f9fa;
     padding: 20px;
-    border-left: 4px solid #667eea;
-    margin-bottom: 30px;
-    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
   }
-  
-  .actions {
-    margin-bottom: 30px;
-    display: flex;
-    gap: 15px;
+
+  .tutorial-content h1 {
+    color: var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 10px;
   }
-  
-  .btn {
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: opacity 0.2s;
+
+  .tutorial-content h2 {
+    color: var(--accent-color);
+    margin-top: 40px;
   }
-  
-  .btn-download {
-    background: #28a745;
-    color: white;
-  }
-  
-  .btn:hover {
-    opacity: 0.9;
-  }
-  
-  .content {
-    line-height: 1.8;
-  }
-  
-  .content h2 {
-    color: #333;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-left: 4px solid #667eea;
-    padding-left: 15px;
-  }
-  
-  .content h3 {
-    color: #555;
-    margin-top: 25px;
-    margin-bottom: 12px;
-  }
-  
-  .content p {
-    margin-bottom: 15px;
-    color: #444;
-  }
-  
-  .content pre {
-    background: #2d2d2d;
-    color: #f8f8f2;
-    padding: 20px;
-    border-radius: 8px;
+
+  .tutorial-content pre {
+    background: #f4f4f4;
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
     overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+    border: 2px solid var(--accent-color);
+  }
+
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+
+  .code-console button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .code-console button:hover {
+    opacity: 0.85;
+  }
+
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+
+  .exercise-prompt {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px;
     margin: 20px 0;
   }
-  
-  .content code {
-    font-family: 'Courier New', monospace;
+
+  /* Back to Home button */
+  .btn-back {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white !important;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
   }
-  
-  .content ul, .content ol {
-    margin-left: 25px;
-    margin-bottom: 15px;
-  }
-  
-  .content li {
-    margin-bottom: 8px;
+
+  .btn-back:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
   }
 </style>
 
-<div class="container">
-  <%= link_to "← Back to Browse", user_pages_path, class: "back-link" %>
-  
-  <div class="header">
-    <h1><%= @user_page.title %></h1>
-    <div class="meta">
-      <div class="meta-item">
-        <span class="language-badge"><%= @user_page.language %></span>
-      </div>
-      <div class="meta-item">
-        <strong>Author:</strong> <%= @user_page.author %>
-      </div>
-      <div class="meta-item">
-        <strong>Downloads:</strong> <%= @user_page.downloads %>
-      </div>
-      <div class="meta-item">
-        <strong>Created:</strong> <%= @user_page.created_at.strftime("%B %d, %Y") %>
-      </div>
-    </div>
+<div class="tutorial-content" style="--accent-color: <%= @user_page.parsed_content['accent_color'] || '#667eea' %>;">
+  <%= link_to "← Back to Home", root_path, class: "btn-back" %>
+
+  <h1><%= @user_page.title %></h1>
+
+  <div class="meta">
+    <span class="language-badge"><%= @user_page.parsed_content['language']['name'] rescue @user_page.language %></span> |
+    <strong>Author:</strong> <%= @user_page.author %> |
+    <strong>Downloads:</strong> <%= @user_page.downloads %> |
+    <strong>Created:</strong> <%= @user_page.created_at.strftime("%B %d, %Y") %>
   </div>
-  
-  <div class="description">
+
+  <div class="description" style="border-left: 4px solid var(--accent-color); padding-left: 10px; margin: 20px 0;">
     <%= @user_page.description %>
   </div>
-  
+
   <div class="actions">
     <%= link_to "⬇ Download Tutorial", user_pages_download_path(@user_page), class: "btn btn-download" %>
   </div>
-  
-  <div class="content">
-    <%= raw @user_page.content %>
-  </div>
+
+  <% content = @user_page.parsed_content %>
+  <% (content['sections'] || []).each_with_index do |block, idx| %>
+    <% case block['type'] %>
+    <% when 'section' %>
+      <section>
+        <h2><%= block['title'] %></h2>
+        <p><%= block['content'] %></p>
+      </section>
+    <% when 'code' %>
+      <div class="code-console">
+        <h3><%= block['title'] %></h3>
+        <pre><code><%= block['code'] %></code></pre>
+      </div>
+    <% when 'exercise' %>
+      <div class="code-console">
+        <h3><%= block['title'] %></h3>
+        <div class="exercise-prompt"><%= block['prompt'] %></div>
+        <form class="console-form" data-exercise="<%= idx %>">
+          <textarea name="code" placeholder="Write your code here..."><%= block['starter_code'] %></textarea>
+          <input type="hidden" name="language" value="<%= content['language']['name'] %>">
+          <button type="submit">Run Code</button>
+        </form>
+        <div class="output-box" data-output="<%= idx %>">Output will appear here...</div>
+      </div>
+    <% end %>
+  <% end %>
 </div>
+
+<script>
+  document.querySelectorAll('.console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const idx = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${idx}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+
+        const response = await fetch('/code/run', { method: 'POST', body: formData });
+        const result = await response.json();
+
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (err) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + err.message;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Run Code';
+      }
+    });
+  });
+</script>

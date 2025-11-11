@@ -36,7 +36,16 @@ class UserPagesController < ApplicationController
               type: 'application/json',
               disposition: 'attachment'
   end
-  
+
+  def destroy
+    @user_page = UserPage.find_by(id: params[:id])
+    if @user_page&.destroy
+      render json: { success: true }
+    else
+      render json: { success: false, error: "Could not delete tutorial" }, status: :unprocessable_entity
+    end
+  end
+
   # Show upload form
   def upload_form
   end
@@ -44,32 +53,36 @@ class UserPagesController < ApplicationController
   # Upload a downloaded page
   def upload
     uploaded_file = params[:file]
-    
+
     if uploaded_file.nil?
-      redirect_to user_pages_upload_form_path, alert: "Please select a file to upload"
-      return
+      return render json: { success: false, error: "Please select a file to upload" }, status: :unprocessable_entity
     end
-    
+
     begin
-      # Read and parse JSON
       file_content = uploaded_file.read
       json_data = JSON.parse(file_content)
-      
-      # Create new page from imported data
       @user_page = UserPage.from_export(json_data)
-      
+
       if @user_page.save
-        redirect_to user_page_path(@user_page), notice: "Page uploaded successfully!"
+        # Return JSON with success flag and card data
+        render json: {
+          success: true,
+          id: @user_page.id,
+          title: @user_page.title,
+          language: @user_page.language,
+          author: @user_page.author,
+          description: @user_page.description
+        }
       else
-        redirect_to user_pages_upload_form_path, alert: "Invalid page data: #{@user_page.errors.full_messages.join(', ')}"
+        render json: { success: false, error: @user_page.errors.full_messages.join(', ') }, status: :unprocessable_entity
       end
     rescue JSON::ParserError
-      redirect_to user_pages_upload_form_path, alert: "Invalid JSON file"
+      render json: { success: false, error: "Invalid JSON file" }, status: :unprocessable_entity
     rescue => e
-      redirect_to user_pages_upload_form_path, alert: "Error uploading file: #{e.message}"
+      render json: { success: false, error: "Error uploading file: #{e.message}" }, status: :unprocessable_entity
     end
   end
-  
+
   private
   
   def user_page_params
