@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    # Start Rails in development mode and bind to 0.0.0.0 so the host can connect.
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount app source code for live reload (mount into /rails to match the image)
+      - ./:/rails:cached
+      - ./storage:/rails/storage
+    environment:
+      RAILS_ENV: development
+      NODE_ENV: development
+      BUNDLE_FROZEN: "false"
+      REDIS_URL: redis://redis:6379/1
+      RAILS_LOG_TO_STDOUT: "true"
+      LISTEN_GEM_DEBUGGING: "true"
+    working_dir: /rails
+    depends_on:
+      - redis
+    tty: true
+    stdin_open: true
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
