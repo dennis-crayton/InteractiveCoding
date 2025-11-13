@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  section_id: 1
+  prompt: MyText
+  solution: MyText
+
+two:
+  section_id: 1
+  prompt: MyText
+  solution: MyText

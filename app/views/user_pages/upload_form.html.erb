@@ -1,0 +1,135 @@
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+  }
+  
+  .info-box h3 {
+    margin-top: 0;
+    color: #1976d2;
+  }
+  
+  .info-box ol {
+    margin-left: 20px;
+  }
+  
+  .upload-area {
+    border: 3px dashed #ddd;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+  
+  .upload-area:hover {
+    border-color: #667eea;
+    background: #f8f9fa;
+  }
+  
+  input[type="file"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+  }
+  
+  .btn-submit {
+    background: #667eea;
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .btn-submit:hover {
+    opacity: 0.9;
+  }
+  
+  .alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .alert-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+  }
+  
+  .alert-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+</style>
+
+<div class="container">
+  <%= link_to "← Back to Home", root_path, class: "back-link" %>
+  
+  <h1>Upload Tutorial</h1>
+  <p style="color: #666;">Import a downloaded tutorial file to add it to your collection</p>
+  
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+  
+  <% if flash[:alert] %>
+    <div class="alert alert-error"><%= flash[:alert] %></div>
+  <% end %>
+  
+  <div class="info-box">
+    <h3>How to Upload:</h3>
+    <ol>
+      <li>Download a tutorial from the Browse page</li>
+      <li>Select the downloaded .json file below</li>
+      <li>Click Upload to add it to your collection</li>
+    </ol>
+    <p><strong>Note:</strong> Only .json files exported from this site will work.</p>
+  </div>
+  
+  <%= form_with(url: user_pages_upload_path, method: :post, multipart: true, local: true) do |f| %>
+    <div class="upload-area">
+      <h3>Choose Tutorial File</h3>
+      <p style="color: #666;">Select a .json file</p>
+      <%= f.file_field :file, accept: ".json", required: true %>
+    </div>
+    
+    <%= f.submit "Upload Tutorial", class: "btn-submit" %>
+  <% end %>
+</div>

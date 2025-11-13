@@ -1,0 +1,67 @@
+<style>
+  .page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  .page-card {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  .page-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  }
+
+  .page-title { font-size: 1.3em; font-weight: bold; margin-bottom: 10px; }
+  .page-meta { font-size: 0.9em; color: #666; margin-bottom: 15px; }
+  .page-description { color: #555; margin-bottom: 15px; line-height: 1.5; }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .btn-view { background: #667eea; color: white; }
+  .btn-download { background: #28a745; color: white; }
+  .back-btn { margin-bottom: 30px; display: inline-block; background: #ccc; color: #333; }
+</style>
+
+<%= link_to "← Back to Home", root_path, class: "btn back-btn" %>
+
+<h1>User-Made Tutorials</h1>
+<p>Explore all programming tutorials created by the community.</p>
+
+<% if @user_pages.any? %>
+  <div class="page-grid">
+    <% @user_pages.each do |page| %>
+      <div class="page-card">
+        <div class="page-title"><%= page.title %></div>
+        <div class="page-meta">
+          <strong><%= page.language.capitalize %></strong> • by <%= page.author %>
+        </div>
+        <div class="page-description"><%= truncate(page.description, length: 100) %></div>
+        <%= link_to "View", user_page_path(page), class: "btn btn-view" %>
+        <%= link_to "Download", user_pages_download_path(page), class: "btn btn-download" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <h2>No tutorials yet!</h2>
+    <p>Be the first to create a programming tutorial for the community.</p>
+    <%= link_to "Create First Tutorial", new_user_page_path, class: "btn btn-view" %>
+  </div>
+<% end %>
