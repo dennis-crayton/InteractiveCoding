@@ -1,7 +1,7 @@
 <div class="page-card" data-id="<%= page.id %>">
   <div class="page-title"><%= page.title %></div>
   <div class="page-meta">
-    <strong><%= page.language.capitalize %></strong> • by <%= page.author %>
+    <strong><%= page.language.present? ? page.language.name.capitalize : "Unknown" %></strong> • by <%= page.author.presence || "Anonymous" %>
   </div>
   <div class="page-description"><%= page.description %></div>
   <a href="<%= user_page_path(page) %>" class="btn btn-view">View</a>

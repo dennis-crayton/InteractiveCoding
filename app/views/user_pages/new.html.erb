@@ -6,14 +6,18 @@
     <%= form.text_field :title, class: "form-control", required: true %>
   </div>
 
-  <!-- 🔹 Dynamic Language Selection -->
+  <!-- Dynamic Language Selection -->
   <div class="form-group language-selection">
     <%= form.label :language, "Language" %>
     <select id="languageSelect" name="user_page[language]" class="form-control" required>
       <option value="" disabled selected>Select a language</option>
-      <option value="ruby" data-image="ruby:3.3-alpine" data-ext=".rb" data-command="ruby">Ruby</option>
-      <option value="python" data-image="python:3.12-alpine" data-ext=".py" data-command="python3">Python</option>
-      <option value="java" data-image="openjdk:17-alpine" data-ext=".java" data-command="javac">Java</option>
+
+      <% Language.all.each do |lang| %>
+        <option value="<%= lang.name %>" data-image="<%= lang.image %>" data-ext="<%= lang.extension %>" data-command="<%= lang.command %>">
+          <%= lang.name.capitalize %>
+        </option>
+      <% end %>
+
       <option value="custom">Custom</option>
     </select>
 
@@ -73,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const languageSelect = document.getElementById("languageSelect");
   const customFields = document.getElementById("customLanguageFields");
 
-  // Show custom fields if "Custom" selected
+  // Shows or hides custom fields
   languageSelect.addEventListener("change", (e) => {
     customFields.style.display = e.target.value === "custom" ? "block" : "none";
     updateJSON();
@@ -84,33 +88,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const type = block.dataset.type;
       const inputs = block.querySelectorAll("input, textarea");
       const values = Array.from(inputs).map(el => el.value);
-
-      // Skip empty blocks
       if (values.every(v => v.trim() === "")) return null;
-
-      if (type === "section") {
-        return { type, title: values[0], content: values[1] };
-      } else if (type === "code") {
-        return { type, title: values[0], code: values[1] };
-      } else if (type === "exercise") {
-        return { type, title: values[0], prompt: values[1], starter_code: values[2] };
-      }
+      if (type === "section") return { type, title: values[0], content: values[1] };
+      if (type === "code") return { type, title: values[0], code: values[1] };
+      if (type === "exercise") return { type, title: values[0], prompt: values[1], starter_code: values[2] };
     }).filter(Boolean);
 
-    let languageData = { name: languageSelect.value };
+    let langData = { name: languageSelect.value };
     if (languageSelect.value === "custom") {
-      const customInputs = customFields.querySelectorAll("input");
-      languageData = {
-        name: customInputs[0].value || "Custom",
-        image: customInputs[1].value || "",
-        extension: customInputs[2].value || "",
-        command: customInputs[3].value || ""
+      const inputs = customFields.querySelectorAll("input");
+      langData = {
+        name: inputs[0].value || "Custom",
+        image: inputs[1].value || "",
+        extension: inputs[2].value || "",
+        command: inputs[3].value || ""
+      };
+    } else {
+      const selected = languageSelect.selectedOptions[0];
+      langData = {
+        name: selected.value,
+        image: selected.dataset.image || "",
+        extension: selected.dataset.ext || "",
+        command: selected.dataset.command || ""
       };
     }
 
     contentField.value = JSON.stringify({
       accent_color: accentColorInput.value,
-      language: languageData,
+      language: langData,
       sections: blocks
     }, null, 2);
   };
@@ -121,60 +126,47 @@ document.addEventListener("DOMContentLoaded", () => {
     div.dataset.type = type;
 
     if (type === "section") {
-      div.innerHTML = `
-        <h3>Section</h3>
+      div.innerHTML = `<h3>Section</h3>
         <input type="text" placeholder="Section title" class="form-control">
         <textarea placeholder="Section content" class="form-control"></textarea>
-        <button type="button" class="remove-btn">Remove</button>
-      `;
+        <button type="button" class="remove-btn">Remove</button>`;
     } else if (type === "code") {
-      div.innerHTML = `
-        <h3>Code Example</h3>
+      div.innerHTML = `<h3>Code Example</h3>
         <input type="text" placeholder="Example title" class="form-control">
         <textarea placeholder="Code..." class="form-control"></textarea>
-        <button type="button" class="remove-btn">Remove</button>
-      `;
+        <button type="button" class="remove-btn">Remove</button>`;
     } else if (type === "exercise") {
-      div.innerHTML = `
-        <h3>Exercise</h3>
+      div.innerHTML = `<h3>Exercise</h3>
         <input type="text" placeholder="Exercise title" class="form-control">
         <textarea placeholder="Prompt or instructions..." class="form-control"></textarea>
         <textarea placeholder="Starter code..." class="form-control"></textarea>
         <button type="button" class="run-btn">Run Code</button>
         <pre class="output"></pre>
-        <button type="button" class="remove-btn">Remove</button>
-      `;
+        <button type="button" class="remove-btn">Remove</button>`;
     }
 
     sections.appendChild(div);
     updateJSON();
   };
 
-  document.querySelectorAll(".add-btn").forEach(button => {
-    button.addEventListener("click", (e) => addBlock(e.target.dataset.type));
-  });
-
+  document.querySelectorAll(".add-btn").forEach(btn => btn.addEventListener("click", (e) => addBlock(e.target.dataset.type)));
   sections.addEventListener("input", updateJSON);
   accentColorInput.addEventListener("input", updateJSON);
-  languageSelect.addEventListener("change", updateJSON);
 
   sections.addEventListener("click", (e) => {
     if (e.target.classList.contains("remove-btn")) {
       e.target.parentElement.remove();
       updateJSON();
     }
-
     if (e.target.classList.contains("run-btn")) {
       const block = e.target.closest(".content-block");
-      const language = languageSelect.value;
       const code = block.querySelectorAll("textarea")[1]?.value || "";
       const output = block.querySelector(".output");
       output.textContent = "Running...";
-
       fetch("/code/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ language, code })
+        body: JSON.stringify({ language: languageSelect.value, code })
       })
       .then(res => res.json())
       .then(data => output.textContent = data.output)
@@ -185,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style>
-/* Same as before; no major changes */
 .page-title { font-size: 2rem; margin-bottom: 1rem; text-align: center; }
 .form-container { max-width: 800px; margin: auto; }
 .form-group { margin-bottom: 1rem; }

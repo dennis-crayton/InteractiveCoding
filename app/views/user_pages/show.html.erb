@@ -86,7 +86,6 @@
     margin: 20px 0;
   }
 
-  /* Back to Home button */
   .btn-back {
     display: inline-block;
     background: var(--accent-color);
@@ -96,60 +95,91 @@
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    transition: background 0.2s ease, transform 0.1s ease;
+    transition: opacity 0.2s;
   }
 
   .btn-back:hover {
     opacity: 0.9;
-    transform: translateY(-1px);
+  }
+  
+  .btn-download {
+    display: inline-block;
+    background: #28a745;
+    color: white !important;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+
+  .meta {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+
+  .description {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+    margin: 20px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
   }
 </style>
 
-<div class="tutorial-content" style="--accent-color: <%= @user_page.parsed_content['accent_color'] || '#667eea' %>;">
+<div class="tutorial-content" style="--accent-color: <%= @user_page.accent_color.presence || '#667eea' %>;">
   <%= link_to "← Back to Home", root_path, class: "btn-back" %>
+  <%= link_to "⬇ Download Tutorial", download_user_page_path(@user_page), class: "btn-download" %>
 
   <h1><%= @user_page.title %></h1>
 
   <div class="meta">
-    <span class="language-badge"><%= @user_page.parsed_content['language']['name'] rescue @user_page.language %></span> |
-    <strong>Author:</strong> <%= @user_page.author %> |
-    <strong>Downloads:</strong> <%= @user_page.downloads %> |
+    <strong>Language:</strong> <%= @user_page.language&.name&.capitalize || "Unknown" %> |
+    <strong>Author:</strong> <%= @user_page.author.presence || "Anonymous" %> |
     <strong>Created:</strong> <%= @user_page.created_at.strftime("%B %d, %Y") %>
   </div>
 
-  <div class="description" style="border-left: 4px solid var(--accent-color); padding-left: 10px; margin: 20px 0;">
+  <div class="description">
     <%= @user_page.description %>
   </div>
 
-  <div class="actions">
-    <%= link_to "⬇ Download Tutorial", user_pages_download_path(@user_page), class: "btn btn-download" %>
-  </div>
+  <% if @user_page.sections.empty? && @user_page.code_examples.empty? && @user_page.exercises.empty? %>
+    <div class="exercise-prompt">
+      <strong>Note:</strong> This tutorial doesn't have any content yet.
+    </div>
+  <% end %>
 
-  <% content = @user_page.parsed_content %>
-  <% (content['sections'] || []).each_with_index do |block, idx| %>
-    <% case block['type'] %>
-    <% when 'section' %>
-      <section>
-        <h2><%= block['title'] %></h2>
-        <p><%= block['content'] %></p>
-      </section>
-    <% when 'code' %>
-      <div class="code-console">
-        <h3><%= block['title'] %></h3>
-        <pre><code><%= block['code'] %></code></pre>
-      </div>
-    <% when 'exercise' %>
-      <div class="code-console">
-        <h3><%= block['title'] %></h3>
-        <div class="exercise-prompt"><%= block['prompt'] %></div>
-        <form class="console-form" data-exercise="<%= idx %>">
-          <textarea name="code" placeholder="Write your code here..."><%= block['starter_code'] %></textarea>
-          <input type="hidden" name="language" value="<%= content['language']['name'] %>">
-          <button type="submit">Run Code</button>
-        </form>
-        <div class="output-box" data-output="<%= idx %>">Output will appear here...</div>
-      </div>
-    <% end %>
+  <!-- Render Sections -->
+  <% @user_page.sections.each do |section| %>
+    <section>
+      <h2><%= section.title %></h2>
+      <p><%= simple_format(section.content) %></p>
+    </section>
+  <% end %>
+
+  <!-- Render Code Examples -->
+  <% @user_page.code_examples.each do |example| %>
+    <div class="code-console">
+      <h3><%= example.title %></h3>
+      <pre><code><%= example.code.gsub(/\\\\n|\\n/, "\n").gsub(/\\\\t|\\t/, "\t").gsub(/\\\\"|\\"/,  '"') %></code></pre>
+    </div>
+  <% end %>
+
+  <!-- Render Exercises -->
+  <% @user_page.exercises.each_with_index do |exercise, idx| %>
+    <div class="code-console">
+      <h3><%= exercise.title %></h3>
+      <div class="exercise-prompt"><%= simple_format(exercise.prompt) %></div>
+      <form class="console-form" data-exercise="<%= idx %>">
+        <textarea name="code" placeholder="Write your code here..."><%= exercise.starter_code.gsub(/\\\\n|\\n/, "\n").gsub(/\\\\t|\\t/, "\t").gsub(/\\\\"|\\"/,  '"') %></textarea>
+        <input type="hidden" name="language" value="<%= @user_page.language&.name || 'ruby' %>">
+        <button type="submit">Run Code</button>
+      </form>
+      <div class="output-box" data-output="<%= idx %>">Output will appear here...</div>
+    </div>
   <% end %>
 </div>
 

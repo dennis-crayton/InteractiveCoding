@@ -128,6 +128,7 @@
     text-align: center;
     padding: 60px 20px;
     color: #666;
+    grid-column: 1 / -1; /* Span all columns to center */
   }
 
   .create-btn {
@@ -150,7 +151,7 @@
 <div class="language-buttons">
   <%= link_to "Ruby", languages_ruby_path, class: "ruby-btn" %>
   <%= link_to "Python", languages_python_path, class: "python-btn" %>
-  <%= link_to "Java", "#", class: "java-btn" %>
+  <%= link_to "Java", languages_java_path, class: "java-btn" %>
 </div>
 
 <div class="tutorials-section">
@@ -182,7 +183,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('page-grid');
 
-  // Event delegation for delete buttons
+  // Event Listener for delete buttons
   grid.addEventListener('click', function(event) {
     if (event.target.classList.contains('btn-delete')) {
       event.preventDefault();
