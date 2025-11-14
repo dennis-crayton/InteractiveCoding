@@ -23,29 +23,6 @@
   </head>
 
   <body>
-      <div class="navbar">
-        <%= link_to "Home", root_path %>
-        <div class="dropdown">
-          <button class="dropbtn">Concepts
-            <i class="fa fa-caret-down"></i>
-          </button>
-        <div class="dropdown-content">
-            <%= link_to "Ruby Concepts", "/languages/ruby" %>
-            <%= link_to "Python Concepts", "/languages/python" %>
-            <%= link_to "Java Concepts", "/languages/java" %>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button class="dropbtn">Sandbox
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <%= link_to "Ruby", languages_ruby_sandbox_path %>
-            <%= link_to "Python", languages_python_sandbox_path %>
-            <%= link_to "Java", languages_java_sandbox_path %>
-          </div>
-        </div>
-      </div>
     <%= yield %>
   </body>
 </html>
