@@ -1,10 +1,184 @@
 /*
  * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
+ * With Propshaft, assets are served efficiently without preprocessing steps.
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Reset defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #272727;
+  color: white;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #d8d8d8;
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 1000;
+  padding-right: 10px;
+}
+
+/* Navbar links */
+.navbar a {
+  font-size: 16px;
+  color: rgb(69, 69, 69);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  /* Extend hover area slightly below the button to prevent flicker */
+  padding-bottom: 6px;
+}
+
+/* Dropdown button */
+.dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: rgb(69, 69, 69);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Dropdown menu styling */
+.dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%; /* sits directly below the button */
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  border-radius: 4px;
+  transform: translateY(-5px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+/* Keep dropdown visible while hovering either the button or the dropdown */
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  font-weight: 500;
+  border-left: 4px solid transparent;
+}
+
+/* Default hover */
+.dropdown-content a:hover {
+  color: white;
+}
+
+/* Ruby hover color */
+.dropdown-content a[href*="ruby"]:hover {
+  background-color: #b42929;
+  border-left-color: #b42929;
+}
+
+/* Python hover color */
+.dropdown-content a[href*="python"]:hover {
+  background-color: #2176ff;
+  border-left-color: #2176ff;
+}
+
+/* Java hover color */
+.dropdown-content a[href*="java"]:hover {
+  background-color: #00b8ff;
+  border-left-color: #00b8ff;
+}
+
+/* Active tab styling */
+.navbar a.active,
+.dropdown-content a.active {
+  background-color: rgb(180, 41, 41);
+  color: white;
+  font-weight: bold;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  margin-left: auto;
+  background: none;
+  border: 1px solid #555;
+  color: rgb(69, 69, 69);
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: rgb(180, 41, 41);
+  color: white;
+}
+
+/* Light mode */
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+body.light-mode .navbar {
+  background-color: #e3e3e3;
+}
+
+body.light-mode .navbar a {
+  color: #333;
+}
+
+body.light-mode .dropdown-content {
+  background-color: #fff;
+}
+
+body.light-mode .dropdown-content a {
+  color: #222;
+}
+
+body.light-mode .dropdown-content a:hover {
+  background-color: #eee;
+}
+
+body.light-mode .theme-toggle {
+  border: 1px solid #888;
+  color: #333;
+}
+
+body.light-mode .theme-toggle:hover {
+  background-color: rgb(180, 41, 41);
+  color: white;
+}
+
+/* Additional styles can be added below */
