@@ -31,7 +31,9 @@ foreach ($p in $paths) {
         # Ensure propagation of inherited permissions
         icacls $full /setintegritylevel (OI)(CI) low | Out-Null
     } catch {
-        Write-Host "Warning: Failed to set ACL for $full: $_" -ForegroundColor Yellow
+        # Use formatted string to avoid parser issues when the path contains ':' characters
+        $msg = "Warning: Failed to set ACL for {0}: {1}" -f $full, $_
+        Write-Host $msg -ForegroundColor Yellow
     }
 }
 
