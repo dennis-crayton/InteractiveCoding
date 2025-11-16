@@ -5,6 +5,5 @@ class SandboxController < ApplicationController
     def ruby
     end
     
-    def java
-    end
+    
     end
