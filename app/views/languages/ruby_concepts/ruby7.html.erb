@@ -73,7 +73,7 @@
 <div class="concept-navigation">
   <a href="/languages/ruby/6" class="nav-button">← Previous</a>
   <div class="page-info">Page 7 of 7</div>
-  <div></div>
+  <span class="nav-button" style="visibility: hidden;">Next →</span>
 </div>
 
 </div>
@@ -223,7 +223,6 @@
     white-space: pre-wrap;
   }
 
-  /* FIX #2 — WHAT’S NEXT SECTION FIXED */
   .whats-next-box {
     margin-top: 60px;
     padding: 20px;
@@ -232,8 +231,29 @@
     color: white;
   }
 
+  .whats-next-box h2 {
+    color: #CC342D;
+    margin-top: 0;
+  }
+
+  .whats-next-box p {
+    color: white;
+  }
+
+  .whats-next-box ul {
+    padding-left: 20px;
+    margin: 15px 0;
+  }
+
   .whats-next-box ul li {
     color: white;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    padding-left: 5px;
+  }
+
+  .whats-next-box ul li strong {
+    color: #CC342D;
   }
 
   /* Navigation buttons */
