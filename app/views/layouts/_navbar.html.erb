@@ -6,7 +6,6 @@
     <div class="dropdown-content">
       <%= link_to "Ruby Concepts", "/languages/ruby", class: ("active" if current_page?("/languages/ruby")) %>
       <%= link_to "Python Concepts", "/languages/python", class: ("active" if current_page?("/languages/python")) %>
-      <%= link_to "Java Concepts", "/languages/java", class: ("active" if current_page?("/languages/java")) %>
     </div>
   </div>
 
@@ -15,7 +14,6 @@
     <div class="dropdown-content">
       <%= link_to "Ruby", languages_ruby_sandbox_path, class: ("active" if current_page?(languages_ruby_sandbox_path)) %>
       <%= link_to "Python", languages_python_sandbox_path, class: ("active" if current_page?(languages_python_sandbox_path)) %>
-      <%= link_to "Java", languages_java_sandbox_path, class: ("active" if current_page?(languages_java_sandbox_path)) %>
     </div>
   </div>
 

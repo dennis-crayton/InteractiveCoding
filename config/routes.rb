@@ -7,15 +7,21 @@ Rails.application.routes.draw do
   # get "/sandbox/ruby", to: "sandbox#ruby", as: :sandbox_ruby  
   # get "/sandbox/java", to: "sandbox#java", as: :sandbox_java
   
+  # Main language pages (redirect to first concept page)
+  get "/languages/ruby", to: "languages#ruby", as: :languages_ruby
+  get "/languages/python", to: "languages#python", as: :languages_python
+  get "/languages/java", to: "languages#java", as: :languages_java
+
   #Sandbox pages 
   get "/languages/ruby/sandbox", to: "sandbox#ruby", as: :languages_ruby_sandbox
   get "/languages/python/sandbox", to: "sandbox#python", as: :languages_python_sandbox
   get "/languages/java/sandbox", to: "sandbox#java", as: :languages_java_sandbox
 
-  #Language pages
-  get "/languages/ruby", to: "languages#ruby"
-  get "/languages/python", to: "languages#python"
-  get "/languages/java", to: "languages#java"
+  # Individual concept pages
+  get "/languages/ruby/:page", to: "languages#ruby_concept"
+  get "/languages/python/:page", to: "languages#python_concept"
+  get "/languages/java/:page", to: "languages#java_concept"
+
 
   # Code execution endpoint
   post "/code/run", to: "code#run"

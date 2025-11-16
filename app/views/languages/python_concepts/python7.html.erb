@@ -1,0 +1,292 @@
+<style>
+  .python-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .python-content h1 {
+    color: #3776AB;
+    border-bottom: 3px solid #3776AB;
+    padding-bottom: 10px;
+  }
+  
+  .python-content h2 {
+    color: #3776AB;
+    margin-top: 40px;
+  }
+
+  /* FIXED TERMINAL EXAMPLE BACKGROUNDS (DARK MODE) */
+  .python-content pre {
+    background: #595959ff;         /* Dark black */
+    border-left: 4px solid #3776AB; 
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #ffffff;             /* White code text */
+  }
+
+  /* CODE CONSOLE */
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console button {
+    background: #3776AB;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .code-console button:hover {
+    background: #2a5a85;
+  }
+  
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+
+  /* FIXED EXERCISE CHALLENGE BOXES */
+  .exercise-prompt {
+    background: #1b1b1b;            /* Dark grey */
+    border-left: 4px solid #3776AB; /* Python blue */
+    padding: 15px;
+    margin: 20px 0;
+    color: #ffffff !important;      /* White text */
+  }
+
+  /* Navigation buttons */
+  .concept-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 20px 0;
+    padding: 20px 0;
+    border-top: 2px solid #3776AB;
+  }
+
+  .nav-button {
+    background: #3776AB;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .nav-button:hover {
+    background: #2a5a85;
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-button:disabled {
+    background: #666;
+    cursor: not-allowed;
+  }
+
+  .page-info {
+    color: #3776AB;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .whats-next-box {
+    margin-top: 60px;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .whats-next-box ul li {
+    color: white;
+  }
+
+</style>
+
+<div class="python-content">
+<section>
+    <h2>Classes and Objects</h2>
+    <p>
+      Python is an object-oriented language. Classes provide a way to bundle data and functionality together. 
+      Creating a new instance of a class creates an object of that type.
+    </p>
+    
+    <pre><code># Defining a class
+class Dog:
+    # Class attribute
+    species = "Canis familiaris"
+    
+    # Constructor
+    def __init__(self, name, age):
+        self.name = name  # Instance attribute
+        self.age = age
+    
+    # Instance method
+    def bark(self):
+        return f"{self.name} says Woof!"
+    
+    # Instance method with parameter
+    def birthday(self):
+        self.age += 1
+        return f"{self.name} is now {self.age} years old"
+
+# Creating objects
+buddy = Dog("Buddy", 3)
+max_dog = Dog("Max", 5)
+
+# Using objects
+print(buddy.bark())
+print(buddy.birthday())
+print(f"Species: {buddy.species}")
+
+# Inheritance
+class Puppy(Dog):
+    def bark(self):
+        return f"{self.name} says Yip!"
+
+puppy = Puppy("Charlie", 1)
+print(puppy.bark())</code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 6: Final Challenge</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a <code>Calculator</code> class with methods for add, subtract, 
+      multiply, and divide. Create an instance and use it to perform calculations with different numbers.
+    </div>
+    <form class="python-console-form" data-exercise="6">
+      <textarea name="code" placeholder="Write your Python code here..."></textarea>
+      <input type="hidden" name="language" value="python">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="6">Output will appear here...</div>
+  </div>
+
+    <section class="whats-next-box">
+    <h2>What's Next?</h2>
+    <p>
+      You've learned the fundamentals of Python! From here, you can explore:
+    </p>
+    <ul>
+      <li><strong>File I/O:</strong> Reading and writing files with open()</li>
+      <li><strong>Exception Handling:</strong> Using try/except blocks</li>
+      <li><strong>Modules and Packages:</strong> Organizing code and using pip</li>
+      <li><strong>Popular Libraries:</strong> NumPy, Pandas, Flask, Django</li>
+      <li><strong>GUI Frameworks:</strong> QtPy5 and PySide6</li>
+    </ul>
+    <p>
+      Keep practicing with the exercises above, and try modifying the examples to experiment with Python!
+    </p>
+  </section>
+
+    <div class="concept-navigation">
+    <a href="/languages/python/6" class="nav-button">← Previous</a>
+    <span class="page-info">Page 7 of 7</span>
+    <span class="nav-button" style="visibility: hidden;">Next →</span>
+  </div>
+
+</div>
+
+
+<script>
+  // Handle all console forms
+  document.querySelectorAll('.python-console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const exerciseNum = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${exerciseNum}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+      
+      // Validate input
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+      
+      // Show loading state
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+      
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        const response = await fetch('/code/run', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Display output with appropriate styling
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (error) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + error.message;
+      } finally {
+        // Reset button
+        button.disabled = false;
+        button.textContent = 'Run Code';
+      }
+    });
+  });
+  
+</script>
+
+

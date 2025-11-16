@@ -1,0 +1,248 @@
+<div class="ruby-content">
+    <section>
+        <h2>Methods</h2>
+
+        <pre><code>
+            # Simple method
+            def hi
+            puts "hello there"
+            end
+
+            # With parameter
+            def greet(name)
+            puts "hello #{name}"
+            end
+
+            # Implicit return
+            def double_it(i)
+            i * 2
+            end
+
+            # Explicit return
+            def half_it(i)
+            r = i / 2.0
+            return r
+            end
+        </code></pre>
+  </section>
+
+  <div class="code-console">
+    <h3>Exercise 4: Methods Practice</h3>
+    <div class="exercise-prompt">
+      <strong>Challenge:</strong> Create a <code>calculate_area</code> method.
+    </div>
+    <form class="ruby-console-form" data-exercise="4">
+      <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
+      <input type="hidden" name="language" value="ruby">
+      <button type="submit">Run Code</button>
+    </form>
+    <div class="output-box" data-output="4">Output will appear here...</div>
+  </div>
+
+  <!-- Navigation -->
+<div class="concept-navigation">
+  <a href="/languages/ruby/4" class="nav-button">← Previous</a>
+  <div class="page-info">Page 5 of 7</div>
+  <a href="/languages/ruby/6" class="nav-button">Next →</a>
+</div>
+
+</div>
+
+
+<script>
+  document.querySelectorAll('.ruby-console-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const exerciseNum = this.dataset.exercise;
+      const outputBox = document.querySelector(`[data-output="${exerciseNum}"]`);
+      const code = this.querySelector('textarea[name="code"]').value;
+      const language = this.querySelector('input[name="language"]').value;
+      const button = this.querySelector('button[type="submit"]');
+      
+      if (!code.trim()) {
+        outputBox.textContent = 'Error: Please enter some code first!';
+        outputBox.style.color = '#ff6b6b';
+        return;
+      }
+      
+      outputBox.textContent = '⏳ Running code...';
+      outputBox.style.color = '#ffd43b';
+      button.disabled = true;
+      button.textContent = 'Running...';
+      
+      try {
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('language', language);
+        
+        const response = await fetch('/code/run', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          outputBox.style.color = '#51cf66';
+          outputBox.textContent = '✓ Output:\n' + result.output;
+        } else {
+          outputBox.style.color = '#ff6b6b';
+          outputBox.textContent = '✗ ' + result.output;
+        }
+      } catch (error) {
+        outputBox.style.color = '#ff6b6b';
+        outputBox.textContent = '✗ Network Error: ' + error.message;
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Run Code';
+      }
+    });
+  });
+</script>
+
+<style>
+.ruby-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .ruby-content h1 {
+    color: #CC342D;
+    border-bottom: 3px solid #CC342D;
+    padding-bottom: 10px;
+  }
+  
+  .ruby-content h2 {
+    color: #CC342D;
+    margin-top: 40px;
+  }
+  
+  .ruby-content pre {
+    background: #595959ff;
+    border-left: 4px solid #CC342D;
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: white;
+  }
+
+  /* FIXED EXERCISE PROMPTS — DARK MODE */
+  .exercise-prompt {
+    background: #1b1b1b; 
+    border-left: 4px solid #CC342D;
+    padding: 15px;
+    margin: 20px 0;
+    color: #ffffff !important;
+  }
+  
+  .code-console {
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .code-console h3 {
+    color: #fff;
+    margin-top: 0;
+  }
+  
+  .code-console textarea {
+    width: 100%;
+    min-height: 150px;
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  
+  .code-console button {
+    background: #CC342D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .code-console button:hover {
+    background: #a02822;
+  }
+  
+  .output-box {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+  }
+
+  /* FIX #2 — WHAT’S NEXT SECTION FIXED */
+  .whats-next-box {
+    margin-top: 60px;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .whats-next-box ul li {
+    color: white;
+  }
+
+  /* Navigation buttons */
+  .concept-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 20px 0;
+    padding: 20px 0;
+    border-top: 2px solid #CC342D;
+  }
+
+  .nav-button {
+    background: #CC342D;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .nav-button:hover {
+    background: #a02820;
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-button:disabled {
+    background: #666;
+    cursor: not-allowed;
+  }
+
+  .page-info {
+    color: #CC342D;
+    font-weight: bold;
+    font-size: 18px;
+  }
+</style>
+
