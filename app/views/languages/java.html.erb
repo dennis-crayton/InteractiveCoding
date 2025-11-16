@@ -8,23 +8,44 @@
   }
   
   .java-content h1 {
-    color: #007396;
+    color: #ffffff; /* changed from blue */
     border-bottom: 3px solid #007396;
     padding-bottom: 10px;
   }
   
   .java-content h2 {
-    color: #007396;
+    color: #ffffff; /* changed from blue */
     margin-top: 40px;
   }
-  
+
+  /* FIX FOR EXERCISE CHALLENGE BOXES */
+.exercise-prompt {
+  background: #2d2d2d !important;       /* darker background */
+  border-left: 4px solid #ff9800;
+  padding: 15px;
+  margin: 20px 0;
+  color: #ffffff !important;            /* white text so it's readable */
+}
+
+.exercise-prompt strong {
+  color: #ffcc66 !important;            /* highlight "Challenge:" label */
+}
+
+
+  /* ★ FIXED TERMINAL-STYLE CODE BLOCK BACKGROUND ★ */
   .java-content pre {
-    background: #f4f4f4;
+    background: #1e1e1e !important;   /* dark background */
+    color: #ffffff !important;         /* white text */
     border-left: 4px solid #007396;
     padding: 15px;
     overflow-x: auto;
     font-family: 'Courier New', monospace;
     font-size: 14px;
+    border-radius: 6px; /* optional but looks clean */
+  }
+
+  .java-content code {
+    color: #ffffff !important; /* ensure inline code is white */
   }
   
   .code-console {
@@ -86,12 +107,15 @@
   }
   
   .info-note {
-    background: #e3f2fd;
+    background: #143447; /* darker blue so white text is readable */
+    color: white !important;
     border-left: 4px solid #2196f3;
     padding: 15px;
     margin: 20px 0;
   }
 </style>
+
+
 
 <div class="java-content">
   <h1>Java</h1>
@@ -163,6 +187,8 @@ public class Main {
     }
 }</code></pre>
   </section>
+
+  <!-- CODE-CONSOLE BLOCKS LEFT UNCHANGED (THEY WERE ALREADY DARK THEME) -->
 
   <div class="code-console">
     <h3>Exercise 1: Working with Data Types</h3>
@@ -435,7 +461,7 @@ public class Main {
 public class ArrayListExample {
     public static void main(String[] args) {
         // Creating an ArrayList
-        ArrayList&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+        ArrayList<String> fruits = new ArrayList<>();
         
         // Adding elements
         fruits.add("Apple");
@@ -480,7 +506,7 @@ public class ArrayListExample {
       <input type="hidden" name="language" value="java">
       <button type="submit">Run Code</button>
     </form>
-    <div class="output-box" data-output="5">Output will appear here...</div>
+    <div class="output-box" data-output="5">Java execution is being implemented. Try the code in your local environment!</div>
   </div>
 
   <section>
@@ -612,8 +638,8 @@ public class Main {
     <div class="output-box" data-output="6">Output will appear here...</div>
   </div>
 
-  <section style="margin-top: 60px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-    <h2>What's Next?</h2>
+  <section style="margin-top: 60px; padding: 20px; background: #1e1e1e; color:white; border-radius: 8px;">
+    <h2 style="color:white;">What's Next?</h2>
     <p>
       You've learned the fundamentals of Java! From here, you can explore:
     </p>
@@ -632,7 +658,6 @@ public class Main {
 </div>
 
 <script>
-  // Handle all console forms
   document.querySelectorAll('.java-console-form').forEach(form => {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -643,14 +668,12 @@ public class Main {
       const language = this.querySelector('input[name="language"]').value;
       const button = this.querySelector('button[type="submit"]');
       
-      // Validate input
       if (!code.trim()) {
         outputBox.textContent = 'Error: Please enter some code first!';
         outputBox.style.color = '#ff6b6b';
         return;
       }
       
-      // Show loading state
       outputBox.textContent = '⏳ Running code...';
       outputBox.style.color = '#ffd43b';
       button.disabled = true;
@@ -672,7 +695,6 @@ public class Main {
         
         const result = await response.json();
         
-        // Display output with appropriate styling
         if (result.success) {
           outputBox.style.color = '#51cf66';
           outputBox.textContent = '✓ Output:\n' + result.output;
@@ -684,7 +706,6 @@ public class Main {
         outputBox.style.color = '#ff6b6b';
         outputBox.textContent = '✗ Network Error: ' + error.message;
       } finally {
-        // Reset button
         button.disabled = false;
         button.textContent = 'Run Code';
       }

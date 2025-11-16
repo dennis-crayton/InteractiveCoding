@@ -182,3 +182,35 @@ body.light-mode .theme-toggle:hover {
 }
 
 /* Additional styles can be added below */
+/* Java page layout */
+.java-layout {
+  display: flex;
+}
+
+.java-sidebar {
+  width: 230px;
+  background-color: #1f1f1f;
+  padding: 20px;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100% - 60px);
+  overflow-y: auto;
+  border-right: 2px solid #333;
+}
+
+.java-content-wrapper {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  padding: 20px;
+}
+
+.java-sidebar a.active-section {
+  background: #007396;
+  color: white !important;
+  font-weight: bold;
+}
+.java-sidebar a:hover {
+  background: #005f73;
+  color: white !important;
+}

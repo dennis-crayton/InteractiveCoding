@@ -25,6 +25,16 @@
     overflow-x: auto;
     font-family: 'Courier New', monospace;
     font-size: 14px;
+    color: white;
+  }
+
+  /* FIXED EXERCISE PROMPTS — DARK MODE */
+  .exercise-prompt {
+    background: #1b1b1b; 
+    border-left: 4px solid #CC342D;
+    padding: 15px;
+    margin: 20px 0;
+    color: #ffffff !important;
   }
   
   .code-console {
@@ -77,12 +87,18 @@
     font-family: 'Courier New', monospace;
     white-space: pre-wrap;
   }
-  
-  .exercise-prompt {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 15px;
-    margin: 20px 0;
+
+  /* FIX #2 — WHAT’S NEXT SECTION FIXED */
+  .whats-next-box {
+    margin-top: 60px;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .whats-next-box ul li {
+    color: white;
   }
 </style>
 
@@ -162,7 +178,7 @@ end</code></pre>
     <h2>Variables and Symbols</h2>
     <p>
       Ruby variables don't require type declarations. Ruby also has symbols, which are immutable identifiers 
-      that are more memory-efficient than strings when used as keys or constants.
+      that are more memory-efficient when used as keys.
     </p>
     
     <pre><code># Numbers
@@ -174,43 +190,35 @@ complex = Complex(1, 2)
 # Strings
 string = "Hello, world!"
 
-# Symbols (immutable identifiers)
+# Symbols
 sym = :Pao
 
 # Booleans
 bool = true
 
-# Nil (represents absence of value)
+# Nil
 likenull = nil
 
-# Arrays (can contain mixed types)
+# Arrays
 array = [1, 2, 3, "four", :five]
 
-# Hashes (modern syntax with symbols)
+# Hashes
 h = { name: "Colocho Famoso", age: 20 }
-
-# Ranges
-range_inclusive = 1..5    # includes 5
-range_exclusive = 1...5   # excludes 5
 
 puts int
 puts float
 puts string
 puts sym
 puts bool
-p nil                     # p shows debug output
+p nil
 puts array
 puts h</code></pre>
   </section>
 
   <section>
     <h2>Conditionals</h2>
-    <p>
-      Control flow in Ruby uses <code>if</code>, <code>elsif</code>, and <code>else</code>. 
-      Ruby also supports logical operators like <code>&&</code> (AND), <code>||</code> (OR), 
-      and <code>not</code> (NOT).
-    </p>
-    
+    <p>Ruby uses <code>if</code>, <code>elsif</code>, and <code>else</code> for control flow.</p>
+
     <pre><code># Basic if-else
 a = 1
 b = 2
@@ -229,7 +237,7 @@ else
   puts 'e > b'
 end
 
-# elsif (else-if)
+# elsif example
 if f < c
   puts 'f < c'
 elsif not (e >= b) && (d >= b)
@@ -249,8 +257,7 @@ puts result</code></pre>
   <div class="code-console">
     <h3>Exercise 2: Conditionals Practice</h3>
     <div class="exercise-prompt">
-      <strong>Challenge:</strong> Write a program that checks if a number is positive, negative, or zero. 
-      Create a variable <code>num</code> and use if-elsif-else to print the result.
+      <strong>Challenge:</strong> Write a program that checks if a number is positive, negative, or zero.
     </div>
     <form class="ruby-console-form" data-exercise="2">
       <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
@@ -262,52 +269,33 @@ puts result</code></pre>
 
   <section>
     <h2>Loops</h2>
-    <p>
-      Ruby provides several ways to iterate: <code>while</code>, <code>for</code>, <code>until</code>, 
-      and the versatile <code>loop</code> construct. Each has its use cases.
-    </p>
-    
-    <pre><code># While loop (decrementing)
+
+    <pre><code># While loop
 x = 5
 while x >= 1
   puts x
   x -= 1
 end
 
-# For loop with array
-arr = [1, 2, 3, 4, 5]
+# For loop
+arr = [1,2,3,4,5]
 for i in arr do
   puts i
 end
 
-# For loop with range
-y = 10
-for z in 1..5 do
-  y = y * 2
-  puts y
-end
-
-# Loop do (do-while equivalent)
+# Loop do
 x = 1
 loop do
   puts x
   x *= 2
   break if x >= 10
-end
-
-# Until loop
-p = 1
-until p == 5 do
-  puts p * 5
-  p += 1
 end</code></pre>
   </section>
 
   <div class="code-console">
     <h3>Exercise 3: Loop Practice</h3>
     <div class="exercise-prompt">
-      <strong>Challenge:</strong> Use a loop to print the numbers 1 through 10, but only print even numbers. 
-      Try using a <code>for</code> loop with a range and an <code>if</code> statement.
+      <strong>Challenge:</strong> Print even numbers from 1–10 using a loop.
     </div>
     <form class="ruby-console-form" data-exercise="3">
       <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
@@ -319,81 +307,33 @@ end</code></pre>
 
   <section>
     <h2>Methods</h2>
-    <p>
-      Methods in Ruby are defined with the <code>def</code> keyword and can accept parameters. 
-      Ruby methods automatically return the last evaluated expression, but you can use 
-      <code>return</code> explicitly for early returns or clarity.
-    </p>
-    
+
     <pre><code># Simple method
 def hi
   puts "hello there"
 end
 
-# Method with parameter
+# With parameter
 def greet(name)
   puts "hello #{name}"
 end
 
-# Method with implicit return
+# Implicit return
 def double_it(i)
   i * 2
 end
 
-# Method with explicit return
+# Explicit return
 def half_it(i)
   r = i / 2.0
   return r
-end
-
-# Calling methods
-greet("Alice")
-puts double_it(10)
-puts half_it(9)</code></pre>
-  </section>
-
-  <section>
-    <h2>User Input</h2>
-    <p>
-      Ruby can read user input from the console using <code>gets</code>. The <code>chomp</code> method 
-      removes the trailing newline character. You can convert input to different types using 
-      <code>to_i</code> (integer) or <code>to_f</code> (float).
-    </p>
-    
-    <pre><code># Getting string input
-puts "Enter your name: "
-name = gets.chomp
-puts "Hello #{name}"
-
-# Getting integer input
-puts "Enter a number: "
-number = gets.to_i
-puts "Double: #{number * 2}"
-
-# Getting float input
-puts "Enter a decimal number: "
-decimal = gets.to_f
-puts "Half: #{decimal / 2}"
-
-# Using input in a loop
-running = true
-while running
-  puts "Enter 'quit' to exit:"
-  answer = gets.chomp.downcase
-  if answer == 'quit'
-    puts 'Goodbye!'
-    running = false
-  else
-    puts "You entered: #{answer}"
-  end
 end</code></pre>
   </section>
 
   <div class="code-console">
     <h3>Exercise 4: Methods Practice</h3>
     <div class="exercise-prompt">
-      <strong>Challenge:</strong> Create a method called <code>calculate_area</code> that takes two parameters 
-      (length and width) and returns the area. Then call the method with values 5 and 3, and print the result.
+      <strong>Challenge:</strong> Create a <code>calculate_area</code> method.
     </div>
     <form class="ruby-console-form" data-exercise="4">
       <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
@@ -405,75 +345,43 @@ end</code></pre>
 
   <section>
     <h2>Arrays and Iteration</h2>
-    <p>
-      Ruby arrays are versatile and come with many built-in methods for manipulation and iteration.
-      The <code>each</code> method is commonly used for iterating over arrays.
-    </p>
-    
-    <pre><code># Creating arrays
-numbers = [1, 2, 3, 4, 5]
-mixed = [1, "hello", :symbol, true]
 
-# Array methods
-numbers.push(6)           # Add to end
-numbers << 7              # Also adds to end
-numbers.unshift(0)        # Add to beginning
-numbers.pop               # Remove from end
-numbers.shift             # Remove from beginning
+    <pre><code># Arrays
+numbers = [1,2,3,4,5]
+mixed = [1,"hello",:symbol,true]
 
-# Iteration with each
+numbers.push(6)
+numbers.unshift(0)
+numbers.pop
+numbers.shift
+
 numbers.each do |num|
   puts num * 2
-end
-
-# Map (transform each element)
-doubled = numbers.map { |n| n * 2 }
-
-# Select (filter)
-evens = numbers.select { |n| n.even? }
-
-# Reduce (accumulate)
-sum = numbers.reduce(0) { |acc, n| acc + n }</code></pre>
+end</code></pre>
   </section>
 
   <section>
     <h2>Hashes</h2>
-    <p>
-      Hashes are collections of key-value pairs, similar to dictionaries in other languages. 
-      They're extremely useful for storing related data.
-    </p>
-    
-    <pre><code># Creating hashes (old syntax)
+
+    <pre><code># Creating hashes
 person = { "name" => "Alice", "age" => 30 }
+student = { name: "Bob", age: 25 }
 
-# Modern syntax with symbols
-student = { name: "Bob", age: 25, grade: "A" }
-
-# Accessing values
 puts student[:name]
 puts student[:age]
 
-# Adding/updating values
-student[:major] = "Computer Science"
+student[:major] = "CS"
 student[:age] = 26
 
-# Iterating over hashes
-student.each do |key, value|
+student.each do |key,value|
   puts "#{key}: #{value}"
-end
-
-# Hash methods
-puts student.keys          # All keys
-puts student.values        # All values
-puts student.has_key?(:name)  # Check if key exists</code></pre>
+end</code></pre>
   </section>
 
   <div class="code-console">
     <h3>Exercise 5: Arrays and Hashes</h3>
     <div class="exercise-prompt">
-      <strong>Challenge:</strong> Create an array of at least 3 hashes, where each hash represents a person 
-      with <code>name</code> and <code>age</code> keys. Then loop through the array and print each person's 
-      information in a readable format.
+      <strong>Challenge:</strong> Create an array of hashes describing people.
     </div>
     <form class="ruby-console-form" data-exercise="5">
       <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
@@ -485,61 +393,47 @@ puts student.has_key?(:name)  # Check if key exists</code></pre>
 
   <section>
     <h2>Modules and Classes</h2>
-    <p>
-      Ruby is object-oriented. Classes define objects, and modules provide reusable code that can be 
-      mixed into classes. <code>include</code> adds module methods as instance methods, while 
-      <code>extend</code> adds them as class methods.
-    </p>
-    
+
     <pre><code># Module with methods
 module AddOrSub
-  def addition(x, y)
+  def addition(x,y)
     x + y
   end
-  
-  def subtraction(x, y)
+
+  def subtraction(x,y)
     x - y
   end
 end
 
 module Modulus
-  def mod(x, y)
+  def mod(x,y)
     x % y
   end
 end
 
-# Class using modules
 class Student
-  include Modulus          # Instance methods
-  extend AddOrSub          # Class methods
+  include Modulus
+  extend AddOrSub
   
   attr_accessor :name, :age
-  
-  def initialize(name, age)
+
+  def initialize(name,age)
     @name = name
     @age = age
   end
 end
 
-# Using class methods (extend)
-puts Student.addition(5, 5)
-puts Student.subtraction(10, 5)
+puts Student.addition(5,5)
+puts Student.subtraction(10,5)
 
-# Using instance methods (include)
-student = Student.new("Alice", 20)
-puts student.mod(19, 4)</code></pre>
+student = Student.new("Alice",20)
+puts student.mod(19,4)</code></pre>
   </section>
 
   <div class="code-console">
     <h3>Exercise 6: Final Challenge</h3>
     <div class="exercise-prompt">
-      <strong>Challenge:</strong> Create a simple calculator that:
-      <ul>
-        <li>Defines methods for add, subtract, multiply, and divide</li>
-        <li>Takes two numbers and an operation as input</li>
-        <li>Returns the result of the operation</li>
-      </ul>
-      Try calling your calculator methods with different numbers and operations!
+      <strong>Challenge:</strong> Build a simple calculator with methods.
     </div>
     <form class="ruby-console-form" data-exercise="6">
       <textarea name="code" placeholder="Write your Ruby code here..."></textarea>
@@ -549,7 +443,8 @@ puts student.mod(19, 4)</code></pre>
     <div class="output-box" data-output="6">Output will appear here...</div>
   </div>
 
-  <section style="margin-top: 60px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+  <!-- FIXED WHAT’S NEXT SECTION -->
+  <section class="whats-next-box">
     <h2>What's Next?</h2>
     <p>
       You've learned the fundamentals of Ruby! From here, you can explore:
@@ -564,10 +459,10 @@ puts student.mod(19, 4)</code></pre>
       Keep practicing with the exercises above, and try modifying the examples to experiment with Ruby!
     </p>
   </section>
+
 </div>
 
 <script>
-  // Handle all console forms
   document.querySelectorAll('.ruby-console-form').forEach(form => {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -578,14 +473,12 @@ puts student.mod(19, 4)</code></pre>
       const language = this.querySelector('input[name="language"]').value;
       const button = this.querySelector('button[type="submit"]');
       
-      // Validate input
       if (!code.trim()) {
         outputBox.textContent = 'Error: Please enter some code first!';
         outputBox.style.color = '#ff6b6b';
         return;
       }
       
-      // Show loading state
       outputBox.textContent = '⏳ Running code...';
       outputBox.style.color = '#ffd43b';
       button.disabled = true;
@@ -601,13 +494,10 @@ puts student.mod(19, 4)</code></pre>
           body: formData
         });
         
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
         
         const result = await response.json();
         
-        // Display output with appropriate styling
         if (result.success) {
           outputBox.style.color = '#51cf66';
           outputBox.textContent = '✓ Output:\n' + result.output;
@@ -619,7 +509,6 @@ puts student.mod(19, 4)</code></pre>
         outputBox.style.color = '#ff6b6b';
         outputBox.textContent = '✗ Network Error: ' + error.message;
       } finally {
-        // Reset button
         button.disabled = false;
         button.textContent = 'Run Code';
       }

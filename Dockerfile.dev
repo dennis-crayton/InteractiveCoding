@@ -29,9 +29,14 @@ RUN apt-get update -qq && \
 
 # Install Ruby gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle install && \
+# Allow bundle to install during image build even if the lockfile differs
+# (this is helpful for developer images). We disable deployment/frozen mode
+# for this build step so `bundle install` can update the lock if necessary.
+RUN bundle config set --local frozen false && \
+    # Install all gems including development group for developer-friendly image
+    BUNDLE_WITHOUT= bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+    BUNDLE_WITHOUT= bundle exec bootsnap precompile --gemfile
 
 # Copy all app code
 COPY . .
