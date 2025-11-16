@@ -1,13 +1,262 @@
-<div style="max-width: 800px; margin: 50px auto; text-align: center; font-family: Arial, sans-serif;">
-  <h1>Interactive Coding</h1>
-  <p>Learn programming languages with interactive examples and exercises.</p>
-  
-  <div style="margin-top: 40px;">
-    <h2>Choose a Language:</h2>
-    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
-      <%= link_to "Ruby", "/languages/ruby", style: "padding: 15px 30px; background: #CC342D; color: white; text-decoration: none; border-radius: 5px;" %>
-      <%= link_to "Python", "/languages/python", style: "padding: 15px 30px; background: #3776AB; color: white; text-decoration: none; border-radius: 5px;" %>
-      <%= link_to "Java", "/languages/java", style: "padding: 15px 30px; background: #007396; color: white; text-decoration: none; border-radius: 5px;" %>
-    </div>
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+    background: #fff;
+    color: #333;
+    margin: 0;
+    padding: 40px 0;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  p.subtitle {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 40px;
+  }
+
+  .language-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .language-buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .language-buttons a:hover {
+    opacity: 0.85;
+  }
+
+  .ruby-btn { background: #c0392b; }
+  .python-btn { background: #2980b9; }
+  .java-btn { background: #007396; }
+
+  .tutorials-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .tutorials-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  .tutorials-section p {
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .page-card {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .page-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  }
+
+  .page-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .page-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .page-description {
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .btn-view {
+    background: #667eea;
+    color: white;
+  }
+
+  .btn-download {
+    background: #28a745;
+    color: white;
+  }
+
+  .btn-delete {
+    background: #e74c3c;
+    color: white;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    grid-column: 1 / -1; /* Span all columns to center */
+  }
+
+  .create-btn {
+    display: inline-block;
+    margin: 20px 0 30px 0;
+    padding: 15px 30px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+
+<h1>Interactive Coding</h1>
+<p class="subtitle">Learn programming languages with interactive examples and exercises.</p>
+
+<h2>Choose a Language:</h2>
+<div class="language-buttons">
+  <%= link_to "Ruby", languages_ruby_path, class: "ruby-btn" %>
+  <%= link_to "Python", languages_python_path, class: "python-btn" %>
+  <%= link_to "Java", languages_java_path, class: "java-btn" %>
+</div>
+
+<div class="tutorials-section">
+  <h2>User-Made Language Tutorials</h2>
+  <p>Explore programming tutorials created by the community.</p>
+
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px;">
+    <%= link_to "Create New Tutorial", new_user_page_path, class: "create-btn" %>
+
+    <label for="upload-json" class="create-btn">Upload JSON</label>
+    <input type="file" id="upload-json" accept="application/json" style="display: none;">
+  </div>
+
+  <div id="page-grid" class="page-grid">
+    <% if @user_pages.any? %>
+      <% @user_pages.each do |page| %>
+        <%= render partial: "user_pages/user_page", locals: { page: page } %>
+      <% end %>
+    <% else %>
+      <div class="empty-state">
+        <h2>No tutorials yet!</h2>
+        <p>Be the first to create a programming tutorial for the community.</p>
+      </div>
+    <% end %>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('page-grid');
+
+  // Event Listener for delete buttons
+  grid.addEventListener('click', function(event) {
+    if (event.target.classList.contains('btn-delete')) {
+      event.preventDefault();
+      const card = event.target.closest('.page-card');
+      const pageId = card.dataset.id;
+
+      if (!confirm('Are you sure you want to delete this tutorial?')) return;
+
+      fetch(`/user_pages/${pageId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': '<%= form_authenticity_token %>',
+          'Accept': 'application/json'
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.success) {
+          card.remove();
+          if (!grid.querySelector('.page-card')) {
+            grid.innerHTML = `
+              <div class="empty-state">
+                <h2>No tutorials yet!</h2>
+                <p>Be the first to create a programming tutorial for the community.</p>
+              </div>
+            `;
+          }
+        } else {
+          alert('Delete failed: ' + data.error);
+        }
+      })
+      .catch(err => alert('Delete error: ' + err));
+    }
+  });
+
+  // Handle dynamic uploads
+  document.getElementById('upload-json').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('<%= user_pages_upload_path %>', {
+      method: 'POST',
+      body: formData,
+      headers: { 'X-CSRF-Token': '<%= form_authenticity_token %>' }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.success) {
+        const empty = grid.querySelector('.empty-state');
+        if (empty) empty.remove();
+
+        const card = document.createElement('div');
+        card.className = 'page-card';
+        card.dataset.id = data.id;
+        card.innerHTML = `
+          <div class="page-title">${data.title}</div>
+          <div class="page-meta">
+            <strong>${data.language.charAt(0).toUpperCase() + data.language.slice(1)}</strong> • by ${data.author}
+          </div>
+          <div class="page-description">${data.description}</div>
+          <a href="/user_pages/${data.id}" class="btn btn-view">View</a>
+          <a href="/user_pages/${data.id}/download" class="btn btn-download">Download</a>
+          <button class="btn btn-delete">Delete</button>
+        `;
+        grid.prepend(card);
+      } else {
+        alert('Upload failed: ' + data.error);
+      }
+    })
+    .catch(err => alert('Upload error: ' + err));
+  });
+});
+</script>

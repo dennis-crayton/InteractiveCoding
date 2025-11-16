@@ -1,0 +1,9 @@
+<div class="page-card" id="user-page-<%= page.id %>">
+  <div class="page-title"><%= page.title %></div>
+  <div class="page-meta">
+    <strong><%= page.language.capitalize %></strong> • by <%= page.author %>
+  </div>
+  <div class="page-description"><%= truncate(page.description, length: 100) %></div>
+  <%= link_to "View", user_page_path(page), class: "btn btn-view" %>
+  <%= link_to "Download", user_pages_download_path(page), class: "btn btn-download" %>
+</div>
